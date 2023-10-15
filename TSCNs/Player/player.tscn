@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpw6hhec66q6b"]
+
+[ext_resource type="Script" path="res://TSCNs/Player/player.gd" id="1_de8k1"]
+[ext_resource type="Texture2D" uid="uid://d1esiokuq1jx8" path="res://Textures/Player/Death.tres" id="2_5ptgu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kda36"]
+radius = 11.0
+height = 32.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_de8k1")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kda36")
+
+[node name="PlaceHolderPlayer" type="Sprite2D" parent="."]
+texture = ExtResource("2_5ptgu")

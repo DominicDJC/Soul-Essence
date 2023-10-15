@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu7v2bbrr5x83"]
+
+[ext_resource type="Script" path="res://TSCNs/MainCam/maincam.gd" id="1_xrf0u"]
+
+[node name="MainCam" type="Camera2D"]
+zoom = Vector2(2, 2)
+script = ExtResource("1_xrf0u")
