@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var PlayerSprite = $PlaceHolderPlayer
+@onready var PlacePoint = $PlacePoint
 @export var speed = 150
 @export var cameraForward = 40
 var direction: Vector2 = Vector2()
