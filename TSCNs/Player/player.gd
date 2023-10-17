@@ -2,10 +2,20 @@ extends CharacterBody2D
 
 @onready var PlayerSprite = $PlaceHolderPlayer
 @onready var PlacePoint = $PlacePoint
+@onready var Hotbar = $"../CanvasLayer/UI/Hotbar"
 @export var speed = 150
 @export var cameraForward = 40
 var direction: Vector2 = Vector2()
+var inventory = [{"Crop1":99}, {"Crop2":60}, {"Crop3":40}, {"Crop4":20}, {"Hoe":1}]
+var hotbar = []
+var selectedItem = ""
 
+
+func _ready():
+	for i in 5:
+		var key = inventory[i].keys()[0]
+		hotbar.push_back(key)
+		Hotbar.get_child(i).text = key
 
 func read_input():
 	velocity = Vector2()
