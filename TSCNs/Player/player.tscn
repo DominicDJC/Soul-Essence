@@ -22,6 +22,7 @@ texture = ExtResource("2_5ptgu")
 [node name="Item Container" type="Node2D" parent="."]
 
 [node name="Item" type="Sprite2D" parent="Item Container"]
+visible = false
 position = Vector2(3, 8)
 texture = ExtResource("3_ldcqh")
 centered = false

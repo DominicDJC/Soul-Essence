@@ -7,15 +7,7 @@ var breakLayer = 0
 var lock = false
 
 func getTile(value):
-	var dict = {
-		"Land": Vector2i(0, 0),
-		"Outside": Vector2i(1, 0),
-		"Soil": Vector2i(2, 0),
-		"Crop1": Vector2i(3, 0),
-		"Crop2": Vector2i(4, 0),
-		"Crop3": Vector2i(5, 0),
-		"Crop4": Vector2i(6, 0)
-	}
+	var dict = G.getAtluses()
 	if typeof(value) == TYPE_VECTOR2I:
 		for key in dict.keys():
 			if dict[key] == get_cell_atlas_coords(0, value):
@@ -30,33 +22,34 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
 	var tileType = getTile(tile)
 	if restraintsGood(tile):
+		var itemTile = G.getItemData(item, ["tile"])
+		var itemType = G.getItemData(item, ["type"])
 		if item == "Hoe" and tileType == "Land":
 			set_cell(0, tile, 2, getTile("Soil"))
-		elif G.itemData.has(item) and G.itemData[item].has("Tile"):
-			var itemTile = G.itemData[item]["Tile"]
+		elif itemType != "" and itemTile != "":
 			match tileType:
 				"Soil":
-					match itemTile:
-						"Crop1", "Crop2", "Crop3", "Crop4":
+					match itemType:
+						"crop":
+							set_cell(0, tile, 2, getTile(itemTile))
+				"Land":
+					match itemType:
+						"trap", "wall":
 							set_cell(0, tile, 2, getTile(itemTile))
 
 func clearTile(localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
-	var tileType = getTile(tile)
+	var tileName = getTile(tile)
 	if restraintsGood(tile):
-		match tileType:
-			"Crop1", "Crop2", "Crop3", "Crop4":
-				if breakLayer == 1:
+		if lock == false:
+			breakLayer = G.getBlockData(tileName, ["breakLayer"])
+		if G.filterBlockData("breakLayer", breakLayer).keys().has(tileName):
+			match breakLayer:
+				1:
 					set_cell(0, tile, 2, getTile("Soil"))
-				if lock == false:
-					breakLayer = 1
-				lock = true
-			"Soil":
-				if breakLayer == 0:
+				0:
 					set_cell(0, tile, 2, getTile("Land"))
-				if lock == false:
-					breakLayer = 0
-				lock = true
+		lock = true
 
 func restraintsGood(tile):
 	var playerCoords = local_to_map(Player.position)

@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var speed = 150
 @export var cameraForward = 40
 var direction: Vector2 = Vector2()
-var inventory = [{"Crop1":99}, {"Crop2":60}, {"Crop3":40}, {"Crop4":20}, {"Hoe":1}]
+var inventory = [{"SpikeTrap":99}, {"StickyTrap":60}, {"SoulSeed":40}, {"WeakWall":20}, {"Hoe":1}]
 var hotbar = []
 var selectedItem = ""
 var cooldown = 0.0
@@ -59,7 +59,7 @@ func read_input():
 		velocity.x += 1
 		direction = Vector2(1, 0)
 	
-	if Input.is_action_pressed("primary"):
+	if Input.is_action_pressed("primary") or Input.is_action_pressed("secondary"):
 		if isPrimaryToTheLeft():
 			PlayerSprite.flip_h = true
 			Item_Container.scale.x = -1

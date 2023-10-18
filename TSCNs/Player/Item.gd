@@ -21,7 +21,7 @@ func primary(selectedItem):
 func secondary(selectedItem, interactingItem):
 	match selectedItem:
 		"Hoe":
-			if G.getItemData(interactingItem, ["Type"]) == "crop":
+			if G.getItemData(interactingItem, ["type"]) == "crop":
 				visible = true
 				await swing(5, 120)
 				visible = false
