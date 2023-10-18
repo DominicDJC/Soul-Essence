@@ -1,11 +1,10 @@
 extends HBoxContainer
 
 @export var Player: Node2D
-var selection = 0
+var selection = 0 : set = setSelection
 
 
 func _physics_process(delta):
-	get_child(selection).grab_focus()
 	if Input.is_action_just_pressed("hotbar1"):
 		selection = 0
 	if Input.is_action_just_pressed("hotbar2"):
@@ -16,6 +15,10 @@ func _physics_process(delta):
 		selection = 3
 	if Input.is_action_just_pressed("hotbar5"):
 		selection = 4
+
+func setSelection(value):
+	selection = value
+	get_child(selection).grab_focus()
 
 func _unhandled_input(event):
 	if event.is_action_pressed("hotbarNext"):

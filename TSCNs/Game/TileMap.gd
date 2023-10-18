@@ -5,20 +5,6 @@ extends TileMap
 @export var Hotbar: Control
 var breakLayer = 0
 var lock = false
-var cooldown = 0.0
-
-func _physics_process(delta):
-	if cooldown == 0:
-		if Input.is_action_pressed("place"):
-				placeTile()
-		if Input.is_action_pressed("remove"):
-				clearTile()
-	if Input.is_action_just_released("remove"):
-		lock = false
-	if cooldown > 0:
-		cooldown -= delta
-	else:
-		cooldown = 0
 
 func getTile(value):
 	var dict = {
@@ -40,9 +26,8 @@ func getTile(value):
 			return dict[value]
 		return Vector2i(0, 0)
 
-func placeTile(localPosition: = get_local_mouse_position()):
+func placeTile(item, localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
-	var item = Hotbar.values[Hotbar.selection]
 	var tileType = getTile(tile)
 	if restraintsGood(tile):
 		if item == "Hoe" and tileType == "Land":
@@ -54,9 +39,8 @@ func placeTile(localPosition: = get_local_mouse_position()):
 					match itemTile:
 						"Crop1", "Crop2", "Crop3", "Crop4":
 							set_cell(0, tile, 2, getTile(itemTile))
-	cooldown = .05
 
-func clearTile(localPosition: = get_local_mouse_position()):
+func clearTile(localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
 	var tileType = getTile(tile)
 	if restraintsGood(tile):
@@ -73,10 +57,9 @@ func clearTile(localPosition: = get_local_mouse_position()):
 				if lock == false:
 					breakLayer = 0
 				lock = true
-	cooldown = .05
 
 func restraintsGood(tile):
-	var playerCoords = local_to_map(Player.position + Player.PlacePoint.position)
+	var playerCoords = local_to_map(Player.position)
 	if permaTiles.has(getTile(tile)):
 		return false
 	if abs(playerCoords.x - tile.x) >= 6:
@@ -84,3 +67,6 @@ func restraintsGood(tile):
 	if abs(playerCoords.y - tile.y) >= 6:
 		return false
 	return true
+
+func mouseOverTile():
+	return getTile(local_to_map(get_local_mouse_position()))

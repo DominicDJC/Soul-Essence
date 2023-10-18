@@ -37,7 +37,7 @@ sources/2 = SubResource("TileSetAtlasSource_xnkf3")
 [node name="Game" type="Node2D"]
 texture_filter = 1
 
-[node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("Player", "Hotbar")]
+[node name="WorldMap" type="TileMap" parent="." node_paths=PackedStringArray("Player", "Hotbar")]
 light_mask = 2
 tile_set = SubResource("TileSet_3b54a")
 format = 2
