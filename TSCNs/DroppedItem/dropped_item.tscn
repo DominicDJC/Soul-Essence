@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://df3yiwwrarusc"]
+
+[ext_resource type="Texture2D" uid="uid://bf43rxpvgurmw" path="res://TileSets/PlaceholderItems.png" id="1_3vefn"]
+[ext_resource type="Script" path="res://TSCNs/DroppedItem/dropped_item.gd" id="2_drtw5"]
+
+[node name="DroppedItem" type="Sprite2D"]
+texture = ExtResource("1_3vefn")
+hframes = 8
+vframes = 8
+script = ExtResource("2_drtw5")

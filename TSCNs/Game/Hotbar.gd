@@ -1,10 +1,11 @@
 extends HBoxContainer
 
-@export var Player: Node2D
+@onready var Player = $"../../../Player"
 var selection = 0 : set = setSelection
 
 
 func _physics_process(delta):
+	setText()
 	if Input.is_action_just_pressed("hotbar1"):
 		selection = 0
 	if Input.is_action_just_pressed("hotbar2"):
@@ -15,6 +16,18 @@ func _physics_process(delta):
 		selection = 3
 	if Input.is_action_just_pressed("hotbar5"):
 		selection = 4
+
+func setText():
+	var hotbar = Player.Inventory.getHotbar()
+	for i in 5:
+		var output: String
+		if hotbar[i] == {}:
+			output = " "
+		else:
+			var item = hotbar[i].keys()[0]
+			var count = hotbar[i][item]
+			output = item + ":" + str(count)
+		get_child(i).text = output
 
 func setSelection(value):
 	selection = value

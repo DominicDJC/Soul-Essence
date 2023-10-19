@@ -1,8 +1,8 @@
 extends TileMap
 
+@onready var DroppedItems = $"../DroppedItems"
+@onready var Player = $"../Player"
 @export var permaTiles: PackedStringArray
-@export var Player: Node2D
-@export var Hotbar: Control
 var breakLayer = 0
 var lock = false
 
@@ -19,6 +19,7 @@ func getTile(value):
 		return Vector2i(0, 0)
 
 func placeTile(item, localPosition := get_local_mouse_position()):
+	print(item)
 	var tile: Vector2i = local_to_map(localPosition)
 	var tileType = getTile(tile)
 	if restraintsGood(tile):
@@ -36,6 +37,10 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 					match itemType:
 						"trap", "wall":
 							set_cell(0, tile, 2, getTile(itemTile))
+	if tileType != getTile(tile):
+		return true
+	else:
+		return false
 
 func clearTile(localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
@@ -49,6 +54,9 @@ func clearTile(localPosition := get_local_mouse_position()):
 					set_cell(0, tile, 2, getTile("Soil"))
 				0:
 					set_cell(0, tile, 2, getTile("Land"))
+			var drop = G.getBlockData(tileName, ["drops"])
+			if drop != "":
+				DroppedItems.dropItem(drop, localPosition)
 		lock = true
 
 func restraintsGood(tile):

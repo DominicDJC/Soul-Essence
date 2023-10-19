@@ -5,24 +5,17 @@ extends CharacterBody2D
 @onready var Hotbar = $"../CanvasLayer/UI/Hotbar"
 @onready var Item = $"Item Container/Item"
 @onready var Item_Container = $"Item Container"
+@onready var Inventory = $Inventory
 @export var speed = 150
 @export var cameraForward = 40
 var direction: Vector2 = Vector2()
-var inventory = [{"SpikeTrap":99}, {"StickyTrap":60}, {"SoulSeed":40}, {"WeakWall":20}, {"Hoe":1}]
-var hotbar = []
 var selectedItem = ""
 var cooldown = 0.0
 
 
-func _ready():
-	for i in 5:
-		var key = inventory[i].keys()[0]
-		hotbar.push_back(key)
-		Hotbar.get_child(i).text = key
-
 func _physics_process(delta):
 	read_input()
-	selectedItem = hotbar[Hotbar.selection]
+	selectedItem = Inventory.getItemByIndex(Hotbar.selection)
 	
 	if Input.is_action_pressed("primary"):
 		Item.primary(selectedItem)
@@ -31,7 +24,8 @@ func _physics_process(delta):
 	
 	if cooldown == 0:
 		if Input.is_action_pressed("primary"):
-			WorldMap.placeTile(selectedItem)
+			if WorldMap.placeTile(selectedItem) and !G.getItemData(selectedItem, ["unlimited"]):
+				Inventory.removeItemByIndex(selectedItem, Hotbar.selection)
 			cooldown = .1
 		if Input.is_action_pressed("secondary"):
 			WorldMap.clearTile()

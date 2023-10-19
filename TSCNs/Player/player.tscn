@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpw6hhec66q6b"]
+[gd_scene load_steps=7 format=3 uid="uid://cpw6hhec66q6b"]
 
 [ext_resource type="Script" path="res://TSCNs/Player/player.gd" id="1_de8k1"]
 [ext_resource type="Texture2D" uid="uid://d1esiokuq1jx8" path="res://Textures/Player/Death.tres" id="2_5ptgu"]
+[ext_resource type="Script" path="res://TSCNs/Player/Inventory.gd" id="2_mj8ug"]
 [ext_resource type="Texture2D" uid="uid://bf43rxpvgurmw" path="res://TileSets/PlaceholderItems.png" id="3_ldcqh"]
 [ext_resource type="Script" path="res://TSCNs/Player/Item.gd" id="4_oi6ac"]
 
@@ -12,6 +13,9 @@ height = 32.0
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_de8k1")
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("2_mj8ug")
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kda36")
@@ -26,7 +30,7 @@ visible = false
 position = Vector2(3, 8)
 texture = ExtResource("3_ldcqh")
 centered = false
-offset = Vector2(0, -32)
-hframes = 4
-vframes = 4
+offset = Vector2(0, -16)
+hframes = 8
+vframes = 8
 script = ExtResource("4_oi6ac")
