@@ -16,7 +16,7 @@ var storedChest = null
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SpikeTrap":99}, {"SpikeTrap":5}, {"StickyTrap":10}, {"PoisonTrap":60}, {"SoulSeed":20}, {"WeakWall":20}, {"AverageWall":20}, {"StrongWall":20}, {"Chest":1}])
+	prepareInventory([{"Hoe":1}, {"SpikeTrap":99}, {"SpikeTrap":5}, {"StickyTrap":10}, {"PoisonTrap":60}, {"SoulSeed":20}, {"WeakWall":20}, {"AverageWall":20}, {"StrongWall":20}, {"Chest":4}])
 
 func prepareInventory(preset := []):
 	items = preset
@@ -104,6 +104,7 @@ func openChest(Chest: Node2D):
 	CUI.chestNode = Chest
 	inventoryContainer.add_child(CUI)
 	open = true
+	inventoryContainer.visible = true
 
 func closeChest():
 	for i in 9:

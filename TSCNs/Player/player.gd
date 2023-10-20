@@ -31,7 +31,6 @@ func _physics_process(delta):
 				Inventory.removeItemByIndex(selectedItem, Hotbar.selection)
 				Hotbar.updateHotbar(Hotbar.selection)
 				lock = true
-			cooldown = .1
 		if Input.is_action_pressed("primary"):
 			WorldMap.clearTile()
 	if Input.is_action_just_released("primary"):
