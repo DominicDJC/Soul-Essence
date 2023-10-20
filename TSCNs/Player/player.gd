@@ -10,6 +10,7 @@ extends CharacterBody2D
 var direction: Vector2 = Vector2()
 var selectedItem = ""
 var cooldown = 0.0
+var lock = false
 
 
 func _physics_process(delta):
@@ -17,20 +18,26 @@ func _physics_process(delta):
 	selectedItem = Inventory.getItemByIndex(Hotbar.selection)
 	
 	if Input.is_action_pressed("secondary"):
-		Item.primary(selectedItem)
+		if WorldMap.posTile() == "Chest" and !Inventory.chestOpen and !lock:
+			Inventory.openChest(WorldMap.getChest())
+		else:
+			Item.secondary(selectedItem)
 	elif Input.is_action_just_pressed("primary"):
-		Item.secondary(selectedItem, WorldMap.mouseOverTile())
+		Item.primary(selectedItem, WorldMap.posTile())
 	
-	if cooldown == 0:
+	if cooldown == 0 and !Inventory.open:
 		if Input.is_action_pressed("secondary"):
 			if WorldMap.placeTile(selectedItem) and !G.getItemData(selectedItem, ["unlimited"]):
 				Inventory.removeItemByIndex(selectedItem, Hotbar.selection)
 				Hotbar.updateHotbar(Hotbar.selection)
+				lock = true
 			cooldown = .1
 		if Input.is_action_pressed("primary"):
 			WorldMap.clearTile()
 	if Input.is_action_just_released("primary"):
 		WorldMap.lock = false
+	if Input.is_action_just_released("secondary"):
+		lock = false
 	if cooldown > 0:
 		cooldown -= delta
 	else:

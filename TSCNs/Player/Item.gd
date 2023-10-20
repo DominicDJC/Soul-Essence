@@ -11,14 +11,14 @@ func _physics_process(delta):
 		rotation_degrees = targetAngle
 		emit_signal("rotation_complete")
 
-func primary(selectedItem):
+func secondary(selectedItem):
 	match selectedItem:
 		"Hoe":
 			visible = true
 			await swing(5, 120)
 			visible = false
 
-func secondary(selectedItem, interactingItem):
+func primary(selectedItem, interactingItem):
 	match selectedItem:
 		"Hoe":
 			if G.getItemData(interactingItem, ["type"]) == "crop":

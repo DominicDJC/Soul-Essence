@@ -6,26 +6,28 @@ extends TextureButton
 @onready var Name = $Name
 var itemIndex = 0
 var itemData = {}
+var type = ""
 
 func _physics_process(delta):
-	itemData = Inventory.getItemDataByIndex(itemIndex)
-	if itemData != {}:
-		var key = itemData.keys()[0]
-		Name.text = key
-		var count = itemData[key]
-		Item.visible = true
-		Item.frame = G.getItemData(key, ["frame"])
-		if count > 1:
-			Count.text = str(itemData[key])
+	if (type == "Chest" and Inventory.chestOpen) or type == "Inventory":
+		itemData = Inventory.getItemDataByIndex(itemIndex)
+		if itemData != {}:
+			var key = itemData.keys()[0]
+			Name.text = key
+			var count = itemData[key]
+			Item.visible = true
+			Item.frame = G.getItemData(key, ["frame"])
+			if count > 1:
+				Count.text = str(itemData[key])
+			else:
+				Count.text = ""
 		else:
+			Item.visible = false
 			Count.text = ""
-	else:
-		Item.visible = false
-		Count.text = ""
-		Name.text = ""
-	
-	Name.position = get_local_mouse_position() + Vector2(1, -10)
-	Name.visible = is_hovered() and !has_focus()
+			Name.text = ""
+		
+		Name.position = get_local_mouse_position() + Vector2(1, -10)
+		Name.visible = is_hovered() and !has_focus()
 
 func setItem(newItemIndex):
 	itemIndex = newItemIndex
@@ -42,4 +44,4 @@ func clearItem():
 func pressed():
 	if Inventory.open:
 		Inventory.grabItem(itemIndex)
-	release_focus()
+		release_focus()

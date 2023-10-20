@@ -2,6 +2,7 @@ extends GridContainer
 
 
 func _ready():
+	Inventory.inventoryContainer = get_parent()
 	prepareInventory()
 
 func prepareInventory():
@@ -9,8 +10,10 @@ func prepareInventory():
 		Inventory.createTile(self, i + Inventory.HOTBAR_SIZE)
 
 func _physics_process(delta):
-	Inventory.open = visible
+	visible = Inventory.open
 	if Input.is_action_just_pressed("openInventory"):
-		visible = !visible
+		Inventory.open = !Inventory.open
 	if Input.is_action_just_pressed("UIBack") and visible:
-		visible = false
+		Inventory.open = false
+	if !Inventory.open and Inventory.chestOpen:
+		Inventory.closeChest()

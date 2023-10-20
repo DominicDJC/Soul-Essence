@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8xe5v1ug1uqo"]
+
+[ext_resource type="Script" path="res://TSCNs/Chest/Chest.gd" id="1_gfl2a"]
+
+[node name="Chest" type="Node2D"]
+script = ExtResource("1_gfl2a")

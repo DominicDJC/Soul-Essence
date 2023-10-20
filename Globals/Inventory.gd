@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var ChestUI = preload("res://TSCNs/ChestUI/chest_ui.tscn")
 @onready var InventoryItemChild = preload("res://Globals/InventoryItemChild/inventory_item_child.tscn")
 @onready var InventoryTile = preload("res://TSCNs/InventoryTile/inventory_tile.tscn")
 const INVENTORY_SIZE = 9
@@ -9,6 +10,9 @@ var items = []
 var heldItem = {}
 var heldItemFallbackIndex = null
 var open = false
+var inventoryContainer: HBoxContainer
+var chestOpen = false
+var storedChest = null
 
 
 func _ready():
@@ -25,9 +29,10 @@ func getHotbar():
 		array.push_back(items[i])
 	return array
 
-func createTile(parent: Control, itemData):
+func createTile(parent: Control, index, type := "Inventory"):
 	var IT = InventoryTile.instantiate()
-	IT.setItem(itemData)
+	IT.setItem(index)
+	IT.type = type
 	parent.add_child(IT)
 
 func grabItem(index):
@@ -89,3 +94,24 @@ func removeItemByIndex(item, index, count := 1):
 
 func clearItemByIndex(index):
 	items[index] = {}
+
+func openChest(Chest: Node2D):
+	storedChest = Chest
+	chestOpen = true
+	for i in Chest.items:
+		items.push_back(i)
+	var CUI = ChestUI.instantiate()
+	CUI.chestNode = Chest
+	inventoryContainer.add_child(CUI)
+	open = true
+
+func closeChest():
+	for i in 9:
+		storedChest.items[i] = items[i + HOTBAR_SIZE + INVENTORY_SIZE]
+	storedChest = null
+	inventoryContainer.get_child(1).queue_free()
+	chestOpen = false
+	var array = []
+	for i in INVENTORY_SIZE + HOTBAR_SIZE:
+		array.push_back(items[i])
+	items = array
