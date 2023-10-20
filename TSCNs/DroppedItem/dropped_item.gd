@@ -18,7 +18,7 @@ func _physics_process(delta):
 		position.x += speed * cos(angleToPlayer)
 		position.y += speed * sin(angleToPlayer)
 	if distanceToPlayer <= 10:
-		Player.Inventory.addItem(item)
+		Inventory.addItem(item)
 		queue_free()
 
 func jump(delta):

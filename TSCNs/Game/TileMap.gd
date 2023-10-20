@@ -19,7 +19,6 @@ func getTile(value):
 		return Vector2i(0, 0)
 
 func placeTile(item, localPosition := get_local_mouse_position()):
-	print(item)
 	var tile: Vector2i = local_to_map(localPosition)
 	var tileType = getTile(tile)
 	if restraintsGood(tile):
@@ -35,7 +34,7 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 							set_cell(0, tile, 2, getTile(itemTile))
 				"Land":
 					match itemType:
-						"trap", "wall":
+						"trap", "wall", "storage":
 							set_cell(0, tile, 2, getTile(itemTile))
 	if tileType != getTile(tile):
 		return true

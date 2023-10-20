@@ -1,11 +1,21 @@
 extends HBoxContainer
 
 @onready var Player = $"../../../Player"
+@onready var InventoryUI = $"../CenterContainer/InventoryUI"
 var selection = 0 : set = setSelection
+var openOld = Inventory.open
 
+
+func _ready():
+	prepareHotbar()
 
 func _physics_process(delta):
-	setText()
+	if openOld != Inventory.open:
+		openOld = Inventory.open
+		if !openOld:
+			selection = selection
+		else:
+			get_child(selection).release_focus()
 	if Input.is_action_just_pressed("hotbar1"):
 		selection = 0
 	if Input.is_action_just_pressed("hotbar2"):
@@ -16,22 +26,10 @@ func _physics_process(delta):
 		selection = 3
 	if Input.is_action_just_pressed("hotbar5"):
 		selection = 4
-
-func setText():
-	var hotbar = Player.Inventory.getHotbar()
-	for i in 5:
-		var output: String
-		if hotbar[i] == {}:
-			output = " "
-		else:
-			var item = hotbar[i].keys()[0]
-			var count = hotbar[i][item]
-			output = item + ":" + str(count)
-		get_child(i).text = output
-
-func setSelection(value):
-	selection = value
-	get_child(selection).grab_focus()
+	if !openOld:
+		for i in get_child_count():
+			if get_child(i).button_pressed:
+				selection = i
 
 func _unhandled_input(event):
 	if event.is_action_pressed("hotbarNext"):
@@ -45,17 +43,13 @@ func _unhandled_input(event):
 		else:
 			selection -= 1
 
-func onePressed():
-	selection = 0
+func setSelection(value):
+	selection = value
+	get_child(selection).grab_focus()
 
-func twoPressed():
-	selection = 1
+func prepareHotbar():
+	for i in Inventory.HOTBAR_SIZE:
+		Inventory.createTile(self, i)
 
-func threePressed():
-	selection = 2
-
-func fourPressed():
-	selection = 3
-
-func fivePressed():
-	selection = 4
+func updateHotbar(index):
+	get_child(index).setItem(index)

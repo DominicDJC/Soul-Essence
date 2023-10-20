@@ -12,7 +12,7 @@ var itemData = {
 		"frame":3
 	},
 	"PoisonTrap":{
-		"tile":"Crop3",
+		"tile":"Poison",
 		"type":"trap",
 		"frame":4
 	},
@@ -22,17 +22,17 @@ var itemData = {
 		"frame":1
 	},
 	"WeakWall":{
-		"tile":"Wall1",
+		"tile":"WeakWall",
 		"type":"wall",
 		"frame":5
 	},
 	"AverageWall":{
-		"tile":"Wall2",
+		"tile":"AverageWall",
 		"type":"wall",
 		"frame":6
 	},
 	"StrongWall":{
-		"tile":"Wall3",
+		"tile":"StrongWall",
 		"type":"wall",
 		"frame":7
 	},
@@ -40,6 +40,11 @@ var itemData = {
 		"type":"hoe",
 		"frame":0,
 		"unlimited":true
+	},
+	"Chest":{
+		"tile":"Chest",
+		"type":"storage",
+		"frame":8
 	}
 }
 
@@ -65,20 +70,20 @@ var blockData = {
 			"atlus":Vector2i(4, 0),
 			"breakLayer":1
 			},
-		"Wall1":{
+		"WeakWall":{
 			"atlus":Vector2i(0, 1),
 			"breakLayer":0,
-			"drops": "Wall1"
+			"drops": "WeakWall"
 		},
-		"Wall2":{
+		"AverageWall":{
 			"atlus":Vector2i(1, 1),
 			"breakLayer":0,
-			"drops": "Wall2"
+			"drops": "AverageWall"
 		},
-		"Wall3":{
+		"StrongWall":{
 			"atlus":Vector2i(2, 1),
 			"breakLayer":0,
-			"drops": "Wall3"
+			"drops": "StrongWall"
 		},
 		"Spike1":{
 			"atlus":Vector2i(0, 2),
@@ -99,6 +104,11 @@ var blockData = {
 			"atlus":Vector2i(3, 2),
 			"breakLayer":0,
 			"drops": "PoisonTrap"
+		},
+		"Chest":{
+			"atlus":Vector2i(3, 1),
+			"breakLayer":0,
+			"drops": "Chest"
 		}
 	}
 

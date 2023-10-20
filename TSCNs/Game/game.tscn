@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b27qg1qcvno5j"]
+[gd_scene load_steps=11 format=3 uid="uid://b27qg1qcvno5j"]
 
 [ext_resource type="Texture2D" uid="uid://divlgkim52vjl" path="res://TileSets/Placeholder.png" id="1_0ecyk"]
 [ext_resource type="Script" path="res://TSCNs/Game/TileMap.gd" id="2_y1ob4"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cu7v2bbrr5x83" path="res://TSCNs/MainCam/maincam.tscn" id="4_t10t1"]
 [ext_resource type="Script" path="res://TSCNs/Game/DroppedItems.gd" id="5_70vqj"]
 [ext_resource type="Script" path="res://TSCNs/Game/Hotbar.gd" id="5_cuxhr"]
+[ext_resource type="PackedScene" uid="uid://dysutw1hlf5dj" path="res://Globals/InventoryItemChild/inventory_item_child.tscn" id="6_dcwfl"]
+[ext_resource type="Script" path="res://TSCNs/Game/InventoryUI.gd" id="7_yg1xq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xnkf3"]
 resource_name = "Placeholder"
@@ -22,6 +24,7 @@ texture = ExtResource("1_0ecyk")
 1:2/0 = 0
 2:2/0 = 0
 3:2/0 = 0
+3:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_3b54a"]
 sources/2 = SubResource("TileSetAtlasSource_xnkf3")
@@ -56,49 +59,50 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="InventoryItemChild" parent="CanvasLayer/UI" instance=ExtResource("6_dcwfl")]
+z_index = 2
+scale = Vector2(3, 3)
 
 [node name="Hotbar" type="HBoxContainer" parent="CanvasLayer/UI"]
 light_mask = 0
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.822
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 429.0
-offset_top = 554.0
-offset_right = -429.0
-offset_bottom = -36.0
+anchor_bottom = 0.91
+offset_top = 0.343994
+offset_right = -768.0
+offset_bottom = -18.68
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(3, 3)
+theme_override_constants/separation = 1
 alignment = 1
 script = ExtResource("5_cuxhr")
 
-[node name="1" type="Button" parent="CanvasLayer/UI/Hotbar"]
-light_mask = 0
-layout_mode = 2
-text = "Crop16"
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -768.0
+offset_bottom = -432.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+mouse_filter = 2
 
-[node name="2" type="Button" parent="CanvasLayer/UI/Hotbar"]
-light_mask = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CenterContainer"]
 layout_mode = 2
-text = "Hoe"
+alignment = 1
 
-[node name="3" type="Button" parent="CanvasLayer/UI/Hotbar"]
-light_mask = 0
+[node name="InventoryUI" type="GridContainer" parent="CanvasLayer/UI/CenterContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
-text = "Empty"
-
-[node name="4" type="Button" parent="CanvasLayer/UI/Hotbar"]
-light_mask = 0
-layout_mode = 2
-text = "Empty"
-
-[node name="5" type="Button" parent="CanvasLayer/UI/Hotbar"]
-light_mask = 0
-layout_mode = 2
-text = "Empty"
-
-[connection signal="pressed" from="CanvasLayer/UI/Hotbar/1" to="CanvasLayer/UI/Hotbar" method="onePressed"]
-[connection signal="pressed" from="CanvasLayer/UI/Hotbar/2" to="CanvasLayer/UI/Hotbar" method="twoPressed"]
-[connection signal="pressed" from="CanvasLayer/UI/Hotbar/3" to="CanvasLayer/UI/Hotbar" method="threePressed"]
-[connection signal="pressed" from="CanvasLayer/UI/Hotbar/4" to="CanvasLayer/UI/Hotbar" method="fourPressed"]
-[connection signal="pressed" from="CanvasLayer/UI/Hotbar/5" to="CanvasLayer/UI/Hotbar" method="fivePressed"]
+mouse_filter = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 3
+script = ExtResource("7_yg1xq")
