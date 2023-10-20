@@ -17,7 +17,7 @@ var openedMerchant = null
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SpikeTrap":99}, {"SpikeTrap":5}, {"StickyTrap":10}, {"PoisonTrap":60}, {"SoulSeed":20}, {"WeakWall":20}, {"AverageWall":20}, {"StrongWall":20}, {"Chest":4}, {"SoulEssence":99}])
+	prepareInventory([{"Hoe":1}, {"SpikeTrap":98}, {"SpikeTrap":5}, {"StickyTrap":10}, {"PoisonTrap":90}, {"SoulSeed":20}, {"WeakWall":20}, {"AverageWall":20}, {"StrongWall":20}, {"Chest":4}, {"SoulEssence":99}, {"SoulEssence":99}, {"SoulEssence":99}])
 
 func prepareInventory(preset := []):
 	items = preset
@@ -39,20 +39,42 @@ func createTile(parent: Control, index, type := "Inventory", data := {}):
 	parent.add_child(IT)
 
 func grabItem(index):
+	var itemData = getItemDataByIndex(index)
 	if heldItemFallbackIndex == null and heldItem == {}:
-		heldItemFallbackIndex = index
-		heldItem = getItemDataByIndex(index)
-		clearItemByIndex(index)
-	elif heldItemFallbackIndex == index:
+		if itemData != {}:
+			heldItemFallbackIndex = index
+			heldItem = itemData
+			clearItemByIndex(index)
+	elif itemData == {}:
 		items[index] = heldItem
 		heldItem = {}
 		heldItemFallbackIndex = null
+	elif itemData != {} and itemData.keys()[0] == heldItem.keys()[0]:
+		var itemKey = itemData.keys()[0]
+		var itemCount = itemData[itemKey]
+		if itemCount + heldItem[itemKey] < 100:
+			items[index] = {itemKey:itemCount + heldItem[itemKey]}
+			heldItem = {}
+			heldItemFallbackIndex = null
+		else:
+			items[index] = {itemKey:99}
+			heldItem = {itemKey:itemCount + heldItem[itemKey] - 99}
 	else:
 		var value = items[index]
 		items[index] = heldItem
 		items[heldItemFallbackIndex] = value
 		heldItem = {}
 		heldItemFallbackIndex = null
+	child.setData(heldItem)
+
+func carryItem(itemData):
+	var itemKey = itemData.keys()[0]
+	var itemCount = itemData[itemKey]
+	if heldItemFallbackIndex == null and heldItem == {}:
+		heldItemFallbackIndex = nextEmpty()
+		heldItem = itemData
+	elif heldItem != {} and heldItem.keys()[0] == itemKey and (heldItem[itemKey] + itemCount < 100):
+		heldItem = {itemKey:itemCount + heldItem[itemKey]}
 	child.setData(heldItem)
 
 func getItemByIndex(index):
@@ -157,6 +179,34 @@ func hasEmptySpace():
 	for i in items:
 		if i == {}:
 			return true
+	return false
+
+func canHold(itemData):
+	print(itemData)
+	if itemData != {}:
+		var key = itemData.keys()[0]
+		var count = itemData[key]
+		for i in items:
+			print(i)
+			if i == {}:
+				print("i == {}")
+				return true
+			else:
+				var iKey = i.keys()[0]
+				var iCount = i[iKey]
+				if heldItem != {}:
+					print("heldItem != {}")
+					var heldKey = heldItem.keys()[0]
+					var heldCount = heldItem[heldKey]
+					print(heldKey)
+					print(iKey)
+					print(key)
+					if (iCount + count + heldCount < 100) and heldKey == key and iKey == key:
+						print("iCount + count + heldCount < 100")
+						return true
+				elif (iCount + count < 100) and iKey == key:
+					print("iCount + count < 100")
+					return true
 	return false
 
 func nextEmpty():

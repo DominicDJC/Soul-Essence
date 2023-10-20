@@ -37,6 +37,10 @@ func _physics_process(delta):
 			price = G.getItemData(key, ["price"])
 			priceItem = "SoulEssence"
 			Name.text = key + "\nPrice: " + str(price) + " " + priceItem
+			if Inventory.canAfford({priceItem:price}):
+				Name.set("theme_override_colors/font_color",Color(255,255,255))
+			else:
+				Name.set("theme_override_colors/font_color",Color(160,0,0))
 			Item.visible = true
 			Item.frame = G.getItemData(key, ["frame"])
 			if count > 1:
@@ -71,9 +75,6 @@ func pressed():
 	else:
 		if Inventory.open:
 			release_focus()
-			if Inventory.hasEmptySpace() and Inventory.canAfford({priceItem:price}):
-				print('test')
+			if Inventory.canHold(itemData) and Inventory.canAfford({priceItem:price}):
 				Inventory.removeItem(priceItem, price)
-				Inventory.heldItem = itemData
-				Inventory.heldItemFallbackIndex = Inventory.nextEmpty()
-				
+				Inventory.carryItem(itemData)

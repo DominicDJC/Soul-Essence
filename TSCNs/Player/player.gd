@@ -21,7 +21,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("secondary"):
 		if WorldMap.posTile() == "Chest" and !Inventory.chestOpen and !lock:
 			Inventory.openChest(WorldMap.getChest())
-		elif merchants != []:
+		elif merchants != [] and !Inventory.open:
 			Inventory.openMerchant(merchants[0])
 		else:
 			Item.secondary(selectedItem)
