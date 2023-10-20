@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b27qg1qcvno5j"]
+[gd_scene load_steps=14 format=3 uid="uid://b27qg1qcvno5j"]
 
 [ext_resource type="Texture2D" uid="uid://divlgkim52vjl" path="res://TileSets/Placeholder.png" id="1_0ecyk"]
 [ext_resource type="Script" path="res://TSCNs/Game/TileMap.gd" id="2_y1ob4"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://TSCNs/Game/DroppedItems.gd" id="5_70vqj"]
 [ext_resource type="Script" path="res://TSCNs/Game/Hotbar.gd" id="5_cuxhr"]
 [ext_resource type="PackedScene" uid="uid://dysutw1hlf5dj" path="res://Globals/InventoryItemChild/inventory_item_child.tscn" id="6_dcwfl"]
+[ext_resource type="Script" path="res://TSCNs/Game/MerchantManager.gd" id="7_nq1ve"]
 [ext_resource type="Script" path="res://TSCNs/Game/InventoryUI.gd" id="7_yg1xq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xnkf3"]
@@ -51,6 +52,9 @@ Target = NodePath("../Player")
 
 [node name="DroppedItems" type="Node2D" parent="."]
 script = ExtResource("5_70vqj")
+
+[node name="MerchantManager" type="Node2D" parent="."]
+script = ExtResource("7_nq1ve")
 
 [node name="Player" parent="." instance=ExtResource("3_by06h")]
 position = Vector2(263, 158)
@@ -100,11 +104,11 @@ grow_vertical = 2
 scale = Vector2(3, 3)
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CenterContainer"]
+[node name="Grid" type="GridContainer" parent="CanvasLayer/UI/CenterContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/v_separation = 17
 
-[node name="InventoryUI" type="GridContainer" parent="CanvasLayer/UI/CenterContainer/HBoxContainer"]
+[node name="InventoryUI" type="GridContainer" parent="CanvasLayer/UI/CenterContainer/Grid"]
 visible = false
 layout_mode = 2
 mouse_filter = 2

@@ -7,6 +7,8 @@ extends TextureButton
 var itemIndex = 0
 var itemData = {}
 var type = ""
+var price = 0
+var priceItem = ""
 
 func _physics_process(delta):
 	if (type == "Chest" and Inventory.chestOpen) or type == "Inventory":
@@ -28,6 +30,26 @@ func _physics_process(delta):
 		
 		Name.position = get_local_mouse_position() + Vector2(1, -10)
 		Name.visible = is_hovered() and !has_focus()
+	elif type == "Merchant":
+		if itemData != {}:
+			var key = itemData.keys()[0]
+			var count = itemData[key]
+			price = G.getItemData(key, ["price"])
+			priceItem = "SoulEssence"
+			Name.text = key + "\nPrice: " + str(price) + " " + priceItem
+			Item.visible = true
+			Item.frame = G.getItemData(key, ["frame"])
+			if count > 1:
+				Count.text = str(itemData[key])
+			else:
+				Count.text = ""
+		else:
+			Item.visible = false
+			Count.text = ""
+			Name.text = ""
+		
+		Name.position = get_local_mouse_position() + Vector2(1, -20)
+		Name.visible = is_hovered() and !has_focus()
 
 func setItem(newItemIndex):
 	itemIndex = newItemIndex
@@ -42,6 +64,16 @@ func clearItem():
 	$ItemContainer/Item.visible = false
 
 func pressed():
-	if Inventory.open:
-		Inventory.grabItem(itemIndex)
-		release_focus()
+	if type != "Merchant":
+		if Inventory.open:
+			Inventory.grabItem(itemIndex)
+			release_focus()
+	else:
+		if Inventory.open:
+			release_focus()
+			if Inventory.hasEmptySpace() and Inventory.canAfford({priceItem:price}):
+				print('test')
+				Inventory.removeItem(priceItem, price)
+				Inventory.heldItem = itemData
+				Inventory.heldItemFallbackIndex = Inventory.nextEmpty()
+				

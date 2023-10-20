@@ -10,13 +10,14 @@ var items = []
 var heldItem = {}
 var heldItemFallbackIndex = null
 var open = false
-var inventoryContainer: HBoxContainer
+var inventoryContainer: GridContainer
 var chestOpen = false
 var storedChest = null
+var openedMerchant = null
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SpikeTrap":99}, {"SpikeTrap":5}, {"StickyTrap":10}, {"PoisonTrap":60}, {"SoulSeed":20}, {"WeakWall":20}, {"AverageWall":20}, {"StrongWall":20}, {"Chest":4}])
+	prepareInventory([{"Hoe":1}, {"SpikeTrap":99}, {"SpikeTrap":5}, {"StickyTrap":10}, {"PoisonTrap":60}, {"SoulSeed":20}, {"WeakWall":20}, {"AverageWall":20}, {"StrongWall":20}, {"Chest":4}, {"SoulEssence":99}])
 
 func prepareInventory(preset := []):
 	items = preset
@@ -29,10 +30,12 @@ func getHotbar():
 		array.push_back(items[i])
 	return array
 
-func createTile(parent: Control, index, type := "Inventory"):
+func createTile(parent: Control, index, type := "Inventory", data := {}):
 	var IT = InventoryTile.instantiate()
 	IT.setItem(index)
 	IT.type = type
+	if type == "Merchant":
+		IT.itemData = data
 	parent.add_child(IT)
 
 func grabItem(index):
@@ -75,14 +78,16 @@ func addItem(item, count := 1):
 			items[i] = {item : count}
 			return
 
-func removeItem(item):
+func removeItem(item, count := 1):
 	var inventorySize = items.size()
-	var smallestIndex = 0
+	var smallestIndex = -1
 	for i in inventorySize:
-		if items[i].keys()[0] == item:
-			if items[i][item] < items[smallestIndex][item]:
+		if items[i] != {} and items[i].keys()[0] == item:
+			if smallestIndex == -1:
 				smallestIndex = i
-	removeItemByIndex(item, smallestIndex)
+			elif items[i][item] < items[smallestIndex][item]:
+				smallestIndex = i
+	removeItemByIndex(item, smallestIndex, count)
 
 func removeItemByIndex(item, index, count := 1):
 	var key = items[index].keys()[0]
@@ -96,6 +101,7 @@ func clearItemByIndex(index):
 	items[index] = {}
 
 func openChest(Chest: Node2D):
+	inventoryContainer.columns = 2
 	storedChest = Chest
 	chestOpen = true
 	for i in Chest.items:
@@ -116,3 +122,44 @@ func closeChest():
 	for i in INVENTORY_SIZE + HOTBAR_SIZE:
 		array.push_back(items[i])
 	items = array
+
+func openMerchant(Merchant: Node2D):
+	inventoryContainer.columns = 1
+	inventoryContainer.visible = true
+	open = true
+	var UI = Merchant.MerchantUI
+	Merchant.remove_child(UI)
+	inventoryContainer.add_child(UI)
+	UI.visible = true
+	openedMerchant = Merchant
+
+func closeMerchant():
+	open = false
+	var UI = inventoryContainer.get_child(1)
+	inventoryContainer.remove_child(UI)
+	openedMerchant.add_child(UI)
+	UI.visible = false
+	openedMerchant = null
+
+func canAfford(itemData := {}):
+	if itemData != {}:
+		var key = itemData.keys()[0]
+		var count = itemData[key]
+		for i in items:
+			if i != {}:
+				var iKey = i.keys()[0]
+				var iCount = i[iKey]
+				if key == iKey and iCount >= count:
+					return true
+	return false
+
+func hasEmptySpace():
+	for i in items:
+		if i == {}:
+			return true
+	return false
+
+func nextEmpty():
+	for i in items.size():
+		if items[i] == {}:
+			return i

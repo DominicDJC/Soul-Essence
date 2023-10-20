@@ -4,47 +4,60 @@ var itemData = {
 	"SpikeTrap":{
 		"tile":"Spike1",
 		"type":"trap",
-		"frame":2
+		"frame":2,
+		"price":5
 	},
 	"StickyTrap":{
 		"tile":"Sticky",
 		"type":"trap",
-		"frame":3
+		"frame":3,
+		"price":5
 	},
 	"PoisonTrap":{
 		"tile":"Poison",
 		"type":"trap",
-		"frame":4
+		"frame":4,
+		"price":5
 	},
 	"SoulSeed":{
 		"tile":"SoulStg1",
 		"type":"crop",
-		"frame":1
+		"frame":1,
+		"price":5
 	},
 	"WeakWall":{
 		"tile":"WeakWall",
 		"type":"wall",
-		"frame":5
+		"frame":5,
+		"price":5
 	},
 	"AverageWall":{
 		"tile":"AverageWall",
 		"type":"wall",
-		"frame":6
+		"frame":6,
+		"price":5
 	},
 	"StrongWall":{
 		"tile":"StrongWall",
 		"type":"wall",
-		"frame":7
+		"frame":7,
+		"price":5
 	},
 	"Hoe":{
 		"type":"hoe",
 		"frame":0,
-		"unlimited":true
+		"unlimited":true,
+		"price":5
 	},
 	"Chest":{
 		"tile":"Chest",
 		"type":"storage",
-		"frame":8
+		"frame":8,
+		"price":5
+	},
+	"SoulEssence":{
+		"type":"item",
+		"frame":9
 	}
 }
 

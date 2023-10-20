@@ -1,7 +1,11 @@
-extends Control
+extends HBoxContainer
 
 @onready var Merchant = self.get_parent()
 
-func prepareMerchant():
+func _physics_process(delta):
+	if Input.is_action_just_pressed("openInventory") and visible:
+		Inventory.closeMerchant()
+
+func prepareMerchant(data: Array):
 	for i in Merchant.ITEMS_COUNT:
-		Inventory.createTile(self, i + Inventory.INVENTORY_SIZE + Inventory.HOTBAR_SIZE, "Merchant")
+		Inventory.createTile(self, i + Inventory.INVENTORY_SIZE + Inventory.HOTBAR_SIZE, "Merchant", {data[i]:1})

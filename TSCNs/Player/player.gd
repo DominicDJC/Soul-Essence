@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var Item_Container = $"Item Container"
 @export var speed = 150
 @export var cameraForward = 40
+var merchants = []
 var direction: Vector2 = Vector2()
 var selectedItem = ""
 var cooldown = 0.0
@@ -20,6 +21,8 @@ func _physics_process(delta):
 	if Input.is_action_pressed("secondary"):
 		if WorldMap.posTile() == "Chest" and !Inventory.chestOpen and !lock:
 			Inventory.openChest(WorldMap.getChest())
+		elif merchants != []:
+			Inventory.openMerchant(merchants[0])
 		else:
 			Item.secondary(selectedItem)
 	elif Input.is_action_just_pressed("primary"):
