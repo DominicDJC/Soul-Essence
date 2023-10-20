@@ -1,6 +1,7 @@
 extends TileMap
 
 @onready var Chest = preload("res://TSCNs/Chest/chest.tscn")
+@onready var Crop = preload("res://TSCNs/Crop/crop.tscn")
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @export var permaTiles: PackedStringArray
@@ -33,6 +34,7 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 					match itemType:
 						"crop":
 							set_cell(0, tile, 2, getTile(itemTile))
+							createCrop(tile)
 				"Land":
 					match itemType:
 						"trap", "wall", "storage":
@@ -43,6 +45,9 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 		return true
 	else:
 		return false
+
+func setTile(tile, tileName):
+	set_cell(0, tile, 2, getTile(tileName))
 
 func clearTile(localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
@@ -55,6 +60,8 @@ func clearTile(localPosition := get_local_mouse_position()):
 				match breakLayer:
 					1:
 						set_cell(0, tile, 2, getTile("Soil"))
+						if tileName == "SoulStg1" or tileName == "SoulStg2":
+							destroyCrop(tile)
 					0:
 						set_cell(0, tile, 2, getTile("Land"))
 						if tileName == "Chest":
@@ -77,6 +84,7 @@ func restraintsGood(tile):
 func createChest(tile):
 	var c = Chest.instantiate()
 	c.tile = tile
+	c.type = "Chest"
 	add_child(c)
 
 func destroyChest(tile):
@@ -84,7 +92,21 @@ func destroyChest(tile):
 
 func getChest(tile := local_to_map(get_local_mouse_position())):
 	for i in get_children():
-		if i.tile == tile:
+		if i.type == "Chest" and i.tile == tile:
+			return i
+
+func createCrop(tile):
+	var c = Crop.instantiate()
+	c.tile = tile
+	c.type = "Crop"
+	add_child(c)
+
+func destroyCrop(tile):
+	getCrop(tile).queue_free()
+
+func getCrop(tile := local_to_map(get_local_mouse_position())):
+	for i in get_children():
+		if i.type == "Crop" and i.tile == tile:
 			return i
 
 func centerPosition(pos := get_local_mouse_position()):

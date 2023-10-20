@@ -81,7 +81,8 @@ var blockData = {
 			},
 		"SoulStg2":{
 			"atlus":Vector2i(4, 0),
-			"breakLayer":1
+			"breakLayer":1,
+			"drops":"SoulEssence"
 			},
 		"WeakWall":{
 			"atlus":Vector2i(0, 1),

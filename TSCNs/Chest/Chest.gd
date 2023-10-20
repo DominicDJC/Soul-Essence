@@ -1,6 +1,7 @@
 extends Node2D
 
 const CHEST_SIZE = 9
+var type = "Chest"
 var tile: Vector2i
 var items = []
 
