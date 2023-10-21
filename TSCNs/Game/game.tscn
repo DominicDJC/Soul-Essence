@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b27qg1qcvno5j"]
+[gd_scene load_steps=17 format=3 uid="uid://b27qg1qcvno5j"]
 
 [ext_resource type="Texture2D" uid="uid://divlgkim52vjl" path="res://TileSets/Placeholder.png" id="1_0ecyk"]
 [ext_resource type="Script" path="res://TSCNs/Game/TileMap.gd" id="2_y1ob4"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://TSCNs/Game/MerchantManager.gd" id="7_nq1ve"]
 [ext_resource type="Script" path="res://TSCNs/Game/InventoryUI.gd" id="7_yg1xq"]
 [ext_resource type="Script" path="res://TSCNs/Game/EnemyManager.gd" id="8_aryv8"]
+[ext_resource type="FontFile" uid="uid://3ttl8bobhg5c" path="res://Fonts/dogicapixel.ttf" id="13_nwxos"]
+[ext_resource type="Script" path="res://TSCNs/Game/DateTime.gd" id="14_rp7hn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xnkf3"]
 resource_name = "Placeholder"
@@ -120,3 +122,23 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 3
 script = ExtResource("7_yg1xq")
+
+[node name="DateTime" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -765.0
+offset_bottom = -430.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("13_nwxos")
+theme_override_font_sizes/font_size = 8
+text = "Time: 11:30
+Day: 1"
+horizontal_alignment = 2
+script = ExtResource("14_rp7hn")

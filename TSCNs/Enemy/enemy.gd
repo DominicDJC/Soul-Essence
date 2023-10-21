@@ -1,10 +1,14 @@
 extends CharacterBody2D
 
 @export var speed = 50
+var DroppedItems: Node2D
 var WorldMap: TileMap
 var target: Node2D
 var cooldown = 3.0
 var holding = []
+var type = "Enemy"
+var health = 30
+
 
 func _physics_process(delta):
 	getTarget()
@@ -39,3 +43,22 @@ func getTarget():
 					target = i
 	else:
 		target = null
+
+func hurt(damage := 5):
+	health -= damage
+	hurtAnimation()
+	if health <= 0:
+		kill()
+
+func hurtAnimation():
+	for i in 5:
+		visible = false
+		await get_tree().create_timer(0.05).timeout
+		visible = true
+		await get_tree().create_timer(0.05).timeout
+
+func kill():
+	for i in holding:
+		DroppedItems.dropItem(i, position)
+	get_parent().remove_child(self)
+	queue_free()

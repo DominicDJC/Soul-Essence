@@ -58,7 +58,13 @@ var itemData = {
 	"SoulEssence":{
 		"type":"item",
 		"frame":9
-	}
+	},
+	"Sword":{
+		"type":"sword",
+		"frame":10,
+		"unlimited":true,
+		"price":5
+	},
 }
 
 var blockData = {
@@ -125,6 +131,19 @@ var blockData = {
 			"drops": ["Chest"]
 		}
 	}
+
+var cycle = 1
+var time: int = 0
+var timeFloat = 0.0
+var timeScale = 15
+
+
+func _physics_process(delta):
+	timeFloat += timeScale * delta
+	if timeFloat > 1440:
+		cycle += 1
+		timeFloat = 0
+	time = round(timeFloat)
 
 func getItemData(item, request := []):
 	var hold = {}

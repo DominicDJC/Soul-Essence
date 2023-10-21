@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpw6hhec66q6b"]
+[gd_scene load_steps=8 format=3 uid="uid://cpw6hhec66q6b"]
 
 [ext_resource type="Script" path="res://TSCNs/Player/player.gd" id="1_de8k1"]
 [ext_resource type="Texture2D" uid="uid://d1esiokuq1jx8" path="res://Textures/Player/Death.tres" id="2_5ptgu"]
 [ext_resource type="Texture2D" uid="uid://bf43rxpvgurmw" path="res://TileSets/PlaceholderItems.png" id="3_ldcqh"]
 [ext_resource type="Script" path="res://TSCNs/Player/Item.gd" id="4_oi6ac"]
+[ext_resource type="Script" path="res://TSCNs/Player/MeleeRange.gd" id="5_dmrji"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kda36"]
 radius = 11.0
 height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qpjla"]
+radius = 40.1123
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -31,3 +35,12 @@ offset = Vector2(0, -16)
 hframes = 8
 vframes = 8
 script = ExtResource("4_oi6ac")
+
+[node name="MeleeRange" type="Area2D" parent="."]
+script = ExtResource("5_dmrji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+shape = SubResource("CircleShape2D_qpjla")
+
+[connection signal="body_entered" from="MeleeRange" to="MeleeRange" method="objectEntered"]
+[connection signal="body_exited" from="MeleeRange" to="MeleeRange" method="objectExited"]

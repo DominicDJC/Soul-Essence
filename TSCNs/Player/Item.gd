@@ -1,5 +1,6 @@
 extends Sprite2D
 
+@onready var MeleeRange = $"../../MeleeRange"
 var targetAngle = 0
 var speed = 0
 signal rotation_complete
@@ -14,6 +15,7 @@ func _physics_process(delta):
 func secondary(selectedItem):
 	match selectedItem:
 		"Hoe":
+			frame = 0
 			visible = true
 			await swing(5, 120)
 			visible = false
@@ -21,12 +23,21 @@ func secondary(selectedItem):
 func primary(selectedItem, interactingItem):
 	match selectedItem:
 		"Hoe":
+			frame = 0
 			if G.getItemData(interactingItem, ["type"]) == "crop":
 				visible = true
 				await swing(5, 120)
 				visible = false
+		"Sword":
+			frame = 10
+			visible = true
+			for i in MeleeRange.getEnemies():
+				i.hurt()
+			await swing(15, 160, -120)
+			visible = false
 
-func swing(newSpeed, newTargetAngle):
+func swing(newSpeed, newTargetAngle, start := 0):
+	rotation_degrees = start
 	speed = newSpeed
 	targetAngle = newTargetAngle
 	await rotation_complete
