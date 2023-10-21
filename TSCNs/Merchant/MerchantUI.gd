@@ -3,7 +3,7 @@ extends HBoxContainer
 @onready var Merchant = self.get_parent()
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("openInventory") and visible:
+	if (Input.is_action_just_pressed("openInventory") or Input.is_action_just_pressed("UIBack"))and visible:
 		Inventory.closeMerchant()
 
 func prepareMerchant(data: Array):

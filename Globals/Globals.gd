@@ -77,52 +77,52 @@ var blockData = {
 		"SoulStg1":{
 			"atlus":Vector2i(3, 0),
 			"breakLayer":1,
-			"drops": "SoulSeed"
+			"drops": ["SoulSeed"]
 			},
 		"SoulStg2":{
 			"atlus":Vector2i(4, 0),
 			"breakLayer":1,
-			"drops":"SoulEssence"
+			"drops":["SoulEssence", "SoulEssence", "SoulSeed"]
 			},
 		"WeakWall":{
 			"atlus":Vector2i(0, 1),
 			"breakLayer":0,
-			"drops": "WeakWall"
+			"drops": ["WeakWall"]
 		},
 		"AverageWall":{
 			"atlus":Vector2i(1, 1),
 			"breakLayer":0,
-			"drops": "AverageWall"
+			"drops": ["AverageWall"]
 		},
 		"StrongWall":{
 			"atlus":Vector2i(2, 1),
 			"breakLayer":0,
-			"drops": "StrongWall"
+			"drops": ["StrongWall"]
 		},
 		"Spike1":{
 			"atlus":Vector2i(0, 2),
 			"breakLayer":0,
-			"drops": "SpikeTrap"
+			"drops": ["SpikeTrap"]
 		},
 		"Spike2":{
 			"atlus":Vector2i(1, 2),
 			"breakLayer":0,
-			"drops": "SpikeTrap"
+			"drops": ["SpikeTrap"]
 		},
 		"Sticky":{
 			"atlus":Vector2i(2, 2),
 			"breakLayer":0,
-			"drops": "StickyTrap"
+			"drops": ["StickyTrap"]
 		},
 		"Poison":{
 			"atlus":Vector2i(3, 2),
 			"breakLayer":0,
-			"drops": "PoisonTrap"
+			"drops": ["PoisonTrap"]
 		},
 		"Chest":{
 			"atlus":Vector2i(3, 1),
 			"breakLayer":0,
-			"drops": "Chest"
+			"drops": ["Chest"]
 		}
 	}
 

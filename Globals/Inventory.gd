@@ -156,6 +156,7 @@ func openMerchant(Merchant: Node2D):
 	openedMerchant = Merchant
 
 func closeMerchant():
+	inventoryContainer.visible = false
 	open = false
 	var UI = inventoryContainer.get_child(1)
 	inventoryContainer.remove_child(UI)

@@ -7,6 +7,10 @@ extends TileMap
 @export var permaTiles: PackedStringArray
 var breakLayer = 0
 var lock = false
+var rng = RandomNumberGenerator.new()
+
+func _ready():
+	rng.randomize()
 
 func getTile(value):
 	var dict = G.getAtluses()
@@ -66,9 +70,9 @@ func clearTile(localPosition := get_local_mouse_position()):
 						set_cell(0, tile, 2, getTile("Land"))
 						if tileName == "Chest":
 							destroyChest(tile)
-				var drop = G.getBlockData(tileName, ["drops"])
-				if drop != "":
-					DroppedItems.dropItem(drop, localPosition)
+				var drops = G.getBlockData(tileName, ["drops"])
+				for drop in drops:
+					DroppedItems.dropItem(drop, localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
 			lock = true
 
 func restraintsGood(tile):

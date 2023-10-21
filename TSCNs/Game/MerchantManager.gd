@@ -5,10 +5,11 @@ extends Node2D
 
 
 func _ready():
-	createMerchant(Vector2(0, 0), "TrapGuy")
+	createMerchant(Vector2(200, 200), "TrapGuy")
 
 func createMerchant(pos, type):
 	var m = Merchant.instantiate()
 	m.Player = Player
 	m.type = type
+	m.position = pos
 	add_child(m)
