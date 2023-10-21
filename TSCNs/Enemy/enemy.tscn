@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://qds306p0tvba"]
+[gd_scene load_steps=7 format=3 uid="uid://qds306p0tvba"]
 
 [ext_resource type="Texture2D" uid="uid://d23enr44rc8sc" path="res://Textures/Enemy Placeholder/Enemy.png" id="1_ntpp1"]
 [ext_resource type="Script" path="res://TSCNs/Enemy/enemy.gd" id="1_q7bej"]
@@ -10,6 +10,9 @@ height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qojve"]
 radius = 20.025
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ornhv"]
+radius = 8.0
 
 [node name="Enemy" type="CharacterBody2D"]
 motion_mode = 1
@@ -28,6 +31,12 @@ position = Vector2(0, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 shape = SubResource("CircleShape2D_qojve")
+
+[node name="trapDetection" type="Area2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trapDetection"]
+shape = SubResource("CircleShape2D_ornhv")
 
 [connection signal="area_entered" from="Detector" to="." method="areaEntered"]
 [connection signal="body_entered" from="Detector" to="." method="bodyEntered"]

@@ -21,13 +21,14 @@ var knockbackSpeed = 0
 var angle
 var angry = 0.0
 var surroundings = []
-var surroundingsCountdown = 0.0
+var surroundingsCountdown = 3.0
+var effects = []
 
 
 func _physics_process(delta):
-	print(speed)
+	runEffects(delta)
 	attackSurroundings(delta)
-	if angry > 0:
+	if angry > 0 and !(G.nightDay == "Day"):
 		angry -= delta
 	elif essenceCheck():
 		target = Portal
@@ -43,8 +44,8 @@ func _physics_process(delta):
 				angle = position.angle_to_point(target.position)
 				velocity.x = cos(angle)
 				velocity.y = sin(angle)
-				position += velocity * delta * speed
-				#position = Vector2(round(position.x), round(position.y))
+				velocity = velocity * speed
+				move_and_slide()
 				cooldown = 0.0 if angry > 0 else 3.0
 			else:
 				if G.nightDay == "Day":
@@ -68,7 +69,6 @@ func _physics_process(delta):
 			velocity.y = sin(angle)
 			velocity = velocity * knockbackSpeed * cooldown * 8
 			move_and_slide()
-			position = Vector2(round(position.x), round(position.y))
 		else:
 			knockback = false
 
@@ -112,6 +112,12 @@ func hurt(source, damage := 5, newKnockbackSpeed := speed, newAngry := 10.0):
 			target = source
 			knockbackSpeed = newKnockbackSpeed
 
+func lightHurt(damage):
+	if health > 0:
+		health -= damage
+		HealthBar.update(health, MAX_HEALTH)
+		hurtAnimation(health <= 0)
+
 func hurtAnimation(kill := false):
 	for i in 5:
 		visible = false
@@ -154,6 +160,30 @@ func attackSurroundings(delta):
 		if surroundingsCountdown > 0:
 			surroundingsCountdown -= delta
 		else:
-			surroundingsCountdown = 3
+			surroundingsCountdown = 3.0
 			for i in surroundings:
 				i.hurt(self)
+
+func poison():
+	for i in effects.size():
+		if effects[i].has("poison"):
+			return
+	effects.push_back({"poison":0.0, "count":6})
+
+func runEffects(delta):
+	for i in effects.size():
+		if effects[i].has("poison"):
+			var timer = effects[i]["poison"]
+			var count = effects[i]["count"]
+			print("Timer: " + str(timer))
+			print("Count: " + str(count))
+			if timer > 0:
+				timer -= delta
+			else:
+				lightHurt(2)
+				timer = 1.0
+				count -= 1
+			if count == 0:
+				effects.pop_at(i)
+			else:
+				effects[i] = {"poison":timer, "count":count}

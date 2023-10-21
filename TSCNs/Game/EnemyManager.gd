@@ -10,6 +10,9 @@ var spawnCooldown = 10.0
 var rng = RandomNumberGenerator.new()
 
 
+func _ready():
+	rng.randomize()
+
 func _physics_process(delta):
 	if G.nightDay == "Night":
 		if spawnCooldown > 0:

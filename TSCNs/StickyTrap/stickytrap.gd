@@ -5,16 +5,12 @@ var type = "StickyTrap"
 var WorldMap
 
 
-func bodyEntered(body):
-	print(body)
-	print("enter")
-	if "angry" in body:
-		print("true")
-		body.speed = 15
+func areaEntered(area):
+	var parent = area.get_parent()
+	if "angry" in parent and area.name == "trapDetection":
+		parent.speed = 15
 
-func bodyExited(body):
-	print(body)
-	print("exit")
-	if "angry" in body:
-		print("true")
-		body.speed = 50
+func areaExited(area):
+	var parent = area.get_parent()
+	if "angry" in parent and area.name == "trapDetection":
+		parent.speed = 50

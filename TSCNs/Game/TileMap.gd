@@ -5,6 +5,7 @@ extends TileMap
 @onready var Wall = preload("res://TSCNs/Wall/wall.tscn")
 @onready var SpikeTrap = preload("res://TSCNs/SpikeTrap/spiketrap.tscn")
 @onready var StickyTrap = preload("res://TSCNs/StickyTrap/stickytrap.tscn")
+@onready var PoisonTrap = preload("res://TSCNs/PoisonTrap/poisontrap.tscn")
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @export var permaTiles: PackedStringArray
@@ -57,6 +58,8 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 											createTrap(tile, "SpikeTrap")
 										"Sticky":
 											createTrap(tile, "StickyTrap")
+										"Poison":
+											createTrap(tile, "PoisonTrap")
 	if tileType != getTile(tile):
 		return true
 	else:
@@ -90,6 +93,8 @@ func clearTile(localPosition := get_local_mouse_position()):
 									destroyTrap("SpikeTrap", tile)
 								"Sticky":
 									destroyTrap("StickyTrap", tile)
+								"Poison":
+									destroyTrap("PoisonTrap", tile)
 					var drops = G.getBlockData(tileName, ["drops"])
 					if tileName == "SoulStg2" and rng.randi_range(0, 2) == 0:
 						DroppedItems.dropItem("SoulSeed", localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
@@ -174,6 +179,8 @@ func createTrap(tile, type):
 			t = SpikeTrap.instantiate()
 		"StickyTrap":
 			t = StickyTrap.instantiate()
+		"PoisonTrap":
+			t = PoisonTrap.instantiate()
 	t.tile = tile
 	t.type = type
 	t.position = map_to_local(tile)

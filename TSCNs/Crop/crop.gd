@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var WorldMap = get_parent()
-const GROW_TIME = 45
+const GROW_TIME = 25
 var type = "Crop"
 var tile: Vector2i
 var timer = 0.0

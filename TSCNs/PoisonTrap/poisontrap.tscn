@@ -1,14 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://pi4cjqhpxs22"]
+[gd_scene load_steps=3 format=3 uid="uid://bfhrmo4q18yyx"]
 
-[ext_resource type="Script" path="res://TSCNs/SpikeTrap/spiketrap.gd" id="1_w5ku7"]
+[ext_resource type="Script" path="res://TSCNs/PoisonTrap/poisontrap.gd" id="1_x4hbj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_575dv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iw0hn"]
+size = Vector2(16, 16)
 
-[node name="spiketrap" type="Area2D"]
-script = ExtResource("1_w5ku7")
+[node name="poisontrap" type="Area2D"]
+script = ExtResource("1_x4hbj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_575dv")
+shape = SubResource("RectangleShape2D_iw0hn")
 
 [connection signal="area_entered" from="." to="." method="areaEntered"]
 [connection signal="area_exited" from="." to="." method="areaExited"]
