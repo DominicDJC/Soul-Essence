@@ -17,7 +17,11 @@ var openedMerchant = null
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SoulSeed":5}, {"WeakWall": 10}, {"AverageWall": 10}, {"StrongWall": 10}])
+	prepareInventory([{"Hoe":1}, {"Gun":1}, {"Sword":1}, {"SoulSeed":5}, {"WeakWall": 10}, {"AverageWall": 10}, {"StrongWall": 10}])
+
+func _physics_process(delta):
+	if !open and heldItem != {}:
+		grabItem(heldItemFallbackIndex)
 
 func prepareInventory(preset := []):
 	items = preset

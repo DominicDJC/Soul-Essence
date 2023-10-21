@@ -1,6 +1,8 @@
 extends Sprite2D
 
+@onready var Player = $"../.."
 @onready var MeleeRange = $"../../MeleeRange"
+@onready var RangedRange = $"../../RangedRange"
 var targetAngle = 0
 var speed = 0
 var action = ""
@@ -32,7 +34,7 @@ func primary(selectedItem, interactingItem):
 				frame = 0
 				visible = true
 				for i in MeleeRange.getEnemies():
-					i.hurt(get_parent().get_parent(), 2)
+					i.hurt(Player, 3)
 				await swing(15, 160, -120)
 				visible = false
 				action = ""
@@ -42,9 +44,22 @@ func primary(selectedItem, interactingItem):
 				frame = 10
 				visible = true
 				for i in MeleeRange.getEnemies():
-					i.hurt(get_parent().get_parent())
+					i.hurt(Player, 7)
 				await swing(15, 160, -120)
 				visible = false
+				action = ""
+		"Gun":
+			if action != "ShootGun":
+				action = "ShootGun"
+				frame = 11
+				visible = true
+				targetAngle = get_parent().position.angle_to_point(get_local_mouse_position())
+				rotation = get_parent().position.angle_to_point(get_local_mouse_position())
+				for i in RangedRange.getEnemies():
+					i.hurt(Player, 5)
+				await get_tree().create_timer(.5).timeout
+				visible = false
+				rotation_degrees = 0
 				action = ""
 
 func swing(newSpeed, newTargetAngle, start := 0):

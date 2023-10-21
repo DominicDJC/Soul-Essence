@@ -65,6 +65,12 @@ var itemData = {
 		"unlimited":true,
 		"price":20
 	},
+	"Gun":{
+		"type":"gun",
+		"frame":11,
+		"unlimited":true,
+		"price":30
+	}
 }
 
 var blockData = {
