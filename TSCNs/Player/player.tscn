@@ -7,11 +7,11 @@
 [ext_resource type="Script" path="res://TSCNs/Player/MeleeRange.gd" id="5_dmrji"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kda36"]
-radius = 11.0
-height = 32.0
+radius = 8.0
+height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpjla"]
-radius = 40.1123
+radius = 43.0116
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1

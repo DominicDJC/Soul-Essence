@@ -24,15 +24,16 @@ func primary(selectedItem, interactingItem):
 	match selectedItem:
 		"Hoe":
 			frame = 0
-			if G.getItemData(interactingItem, ["type"]) == "crop":
-				visible = true
-				await swing(5, 120)
-				visible = false
+			visible = true
+			for i in MeleeRange.getEnemies():
+				i.hurt(get_parent().get_parent(), 2)
+			await swing(15, 160, -120)
+			visible = false
 		"Sword":
 			frame = 10
 			visible = true
 			for i in MeleeRange.getEnemies():
-				i.hurt()
+				i.hurt(get_parent().get_parent())
 			await swing(15, 160, -120)
 			visible = false
 

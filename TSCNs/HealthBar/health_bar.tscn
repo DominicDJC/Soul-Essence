@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1ka0kabqby7l"]
+
+[ext_resource type="Texture2D" uid="uid://cvxkhseewii3w" path="res://Textures/HealthBar.png" id="1_ugtgt"]
+[ext_resource type="Script" path="res://TSCNs/HealthBar/health_bar.gd" id="2_phwjw"]
+
+[node name="HealthBar" type="Sprite2D"]
+visible = false
+texture = ExtResource("1_ugtgt")
+hframes = 2
+vframes = 10
+script = ExtResource("2_phwjw")

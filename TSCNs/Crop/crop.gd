@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var WorldMap = get_parent()
-const GROW_TIME = 15
+const GROW_TIME = 45
 var type = "Crop"
 var tile: Vector2i
 var timer = 0.0
@@ -10,7 +10,7 @@ var rngOffset = 0.0
 var stage = 1
 
 func _ready():
-	rngOffset = rng.randf_range(0.0, 2.0)
+	rngOffset = rng.randf_range(-5, 5)
 
 func _physics_process(delta):
 	if timer < GROW_TIME + rngOffset:

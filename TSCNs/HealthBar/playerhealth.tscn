@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c86ftow2y44og"]
+
+[ext_resource type="Texture2D" uid="uid://b8ofxpccdv7qg" path="res://Textures/PlayerHealthBar.png" id="1_7akyr"]
+[ext_resource type="Script" path="res://TSCNs/HealthBar/playerhealth.gd" id="1_13qei"]
+[ext_resource type="Texture2D" uid="uid://bi6jf8v7kf6kx" path="res://Textures/PlayerHealthBarHealth.png" id="2_sirex"]
+
+[node name="Playerhealth" type="Node2D"]
+script = ExtResource("1_13qei")
+
+[node name="Bar" type="Sprite2D" parent="."]
+texture = ExtResource("1_7akyr")
+
+[node name="Health" type="Sprite2D" parent="."]
+position = Vector2(-47, 0)
+texture = ExtResource("2_sirex")
+offset = Vector2(47, 0)

@@ -1,21 +1,56 @@
 extends Node2D
 
 @onready var MerchantUI = $MerchantUI
+@onready var Sprite = $Sprite
+@onready var textureBuilder = preload("res://Textures/Merchants/BuilderGuy.png")
+@onready var texturePlant = preload("res://Textures/Merchants/PlantGuy.png")
+@onready var textureTrap = preload("res://Textures/Merchants/TrapGuy.png")
+@onready var textureWeapon = preload("res://Textures/Merchants/WeaponsGuy.png")
 const ITEMS_COUNT = 3
 var Player: Node2D
 var type = ""
 var items = []
 var rng = RandomNumberGenerator.new()
 var mouseIn = false
+var target
+var speed = 50
+var origin
 
 
 func _ready():
+	match type:
+		"BuilderGuy":
+			Sprite.texture = textureBuilder
+		"TrapGuy":
+			Sprite.texture = textureTrap
+		"PlantGuy":
+			Sprite.texture = texturePlant
+		"WeaponsGuy":
+			Sprite.texture = textureWeapon
+	origin = Vector2i(250 + rng.randi_range(0, 50), 500)
+	position = origin
+	target = Vector2i(origin.x, 300)
 	rng.randomize()
 	prepareItems()
 	MerchantUI.visible = false
+	await get_tree().create_timer(30).timeout
+	target = origin
 
 func _physics_process(delta):
-	if mouseIn:
+	print(position.distance_to(target))
+	print(position)
+	print(target)
+	if position.distance_to(target) > 15:
+		if target == origin:
+			position.y += speed * delta
+		else:
+			position.y -= speed * delta
+	else:
+		if target == origin:
+			get_parent().remove_child(self)
+			queue_free()
+	
+	if mouseIn and position.distance_to(Player.position) < 110:
 		if !Player.merchants.has(self):
 			Player.merchants.push_back(self)
 	else:
@@ -38,7 +73,7 @@ func itemPool(type):
 		"BuilderGuy":
 			return ["WeakWall", "AverageWall", "StrongWall", "Chest"]
 		"WeaponsGuy":
-			return []
+			return ["Hoe", "Sword", "Sword"]
 		"PlantGuy":
 			return ["SoulSeed", "SoulSeed", "SoulSeed"]
 

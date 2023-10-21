@@ -32,18 +32,18 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 		var itemTile = G.getItemData(item, ["tile"])
 		var itemType = G.getItemData(item, ["type"])
 		if item == "Hoe" and tileType == "Land":
-			set_cell(0, tile, 2, getTile("Soil"))
+			setTile(tile, "Soil")
 		elif itemType != "" and itemTile != "":
 			match tileType:
 				"Soil":
 					match itemType:
 						"crop":
-							set_cell(0, tile, 2, getTile(itemTile))
+							setTile(tile, itemTile)
 							createCrop(tile)
 				"Land":
 					match itemType:
 						"trap", "wall", "storage":
-							set_cell(0, tile, 2, getTile(itemTile))
+							setTile(tile, itemTile)
 							match itemType:
 								"storage":
 									createChest(tile)
@@ -59,28 +59,31 @@ func setTile(tile, tileName):
 
 func clearTile(localPosition := get_local_mouse_position()):
 	var tile: Vector2i = local_to_map(localPosition)
-	var tileName = getTile(tile)
-	if (tileName == "Chest" and getChest(tile).isEmpty()) or tileName != "Chest":
-		if restraintsGood(tile):
-			if lock == false:
-				breakLayer = G.getBlockData(tileName, ["breakLayer"])
-			if G.filterBlockData("breakLayer", breakLayer).keys().has(tileName):
-				match breakLayer:
-					1:
-						set_cell(0, tile, 2, getTile("Soil"))
-						if tileName == "SoulStg1" or tileName == "SoulStg2":
-							destroyCrop(tile)
-					0:
-						set_cell(0, tile, 2, getTile("Land"))
-						match tileName:
-							"Chest":
-								destroyChest(tile)
-							"WeakWall", "AverageWall", "StrongWall":
-								destroyWall(tile)
-				var drops = G.getBlockData(tileName, ["drops"])
-				for drop in drops:
-					DroppedItems.dropItem(drop, localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
-			lock = true
+	if G.blocksHaveAtlus(get_cell_atlas_coords(0, tile)):
+		var tileName = getTile(tile)
+		if (tileName == "Chest" and getChest(tile).isEmpty()) or tileName != "Chest":
+			if restraintsGood(tile):
+				if lock == false:
+					breakLayer = G.getBlockData(tileName, ["breakLayer"])
+				if G.filterBlockData("breakLayer", breakLayer).keys().has(tileName):
+					match breakLayer:
+						1:
+							setTile(tile, "Soil")
+							if tileName == "SoulStg1" or tileName == "SoulStg2":
+								destroyCrop(tile)
+						0:
+							setTile(tile, "Land")
+							match tileName:
+								"Chest":
+									destroyChest(tile)
+								"WeakWall", "AverageWall", "StrongWall":
+									destroyWall(tile)
+					var drops = G.getBlockData(tileName, ["drops"])
+					if tileName == "SoulStg2" and rng.randi_range(0, 2) == 0:
+						DroppedItems.dropItem("SoulSeed", localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
+					for drop in drops:
+						DroppedItems.dropItem(drop, localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
+				lock = true
 
 func restraintsGood(tile):
 	var playerCoords = local_to_map(Player.position)
@@ -134,6 +137,7 @@ func createWall(tile, type):
 	w.tile = tile
 	w.type = "Wall"
 	w.position = map_to_local(tile)
+	w.WorldMap = self
 	match type:
 		"WeakWall":
 			w.health = 10
@@ -163,5 +167,7 @@ func enemyKillTile(tile, enemy):
 		"SoulStg1", "SoulStg2":
 			for i in G.getBlockData(tileName, ["drops"]):
 				enemy.holding.push_back(i)
-			set_cell(0, tile, 2, getTile("Soil"))
+			setTile(tile, "Soil")
 			destroyCrop(tile)
+		"WeakWall", "AverageWall", "StrongWall":
+			setTile(tile, "Land")

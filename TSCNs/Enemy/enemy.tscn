@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://qds306p0tvba"]
+[gd_scene load_steps=6 format=3 uid="uid://qds306p0tvba"]
 
 [ext_resource type="Texture2D" uid="uid://d23enr44rc8sc" path="res://Textures/Enemy Placeholder/Enemy.png" id="1_ntpp1"]
 [ext_resource type="Script" path="res://TSCNs/Enemy/enemy.gd" id="1_q7bej"]
+[ext_resource type="PackedScene" uid="uid://c1ka0kabqby7l" path="res://TSCNs/HealthBar/health_bar.tscn" id="3_jktp0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n2fbx"]
 radius = 11.0
 height = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qojve"]
+radius = 20.025
+
 [node name="Enemy" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_q7bej")
 
 [node name="EnemyCollision" type="CollisionShape2D" parent="."]
@@ -15,3 +20,15 @@ shape = SubResource("CapsuleShape2D_n2fbx")
 
 [node name="Enemy" type="Sprite2D" parent="."]
 texture = ExtResource("1_ntpp1")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_jktp0")]
+position = Vector2(0, -19)
+
+[node name="Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+shape = SubResource("CircleShape2D_qojve")
+
+[connection signal="area_entered" from="Detector" to="." method="areaEntered"]
+[connection signal="body_entered" from="Detector" to="." method="bodyEntered"]
+[connection signal="body_exited" from="Detector" to="." method="bodyExited"]

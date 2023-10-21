@@ -8,4 +8,4 @@ func _physics_process(delta):
 
 func prepareMerchant(data: Array):
 	for i in Merchant.ITEMS_COUNT:
-		Inventory.createTile(self, i + Inventory.INVENTORY_SIZE + Inventory.HOTBAR_SIZE, "Merchant", {data[i]:1})
+		Inventory.createTile(self, i + Inventory.INVENTORY_SIZE + Inventory.HOTBAR_SIZE, "Merchant", {data[i]:1 if data[i] != "SoulSeed" else 2})

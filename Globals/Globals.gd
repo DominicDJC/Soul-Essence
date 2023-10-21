@@ -11,49 +11,49 @@ var itemData = {
 		"tile":"Sticky",
 		"type":"trap",
 		"frame":3,
-		"price":5
+		"price":2
 	},
 	"PoisonTrap":{
 		"tile":"Poison",
 		"type":"trap",
 		"frame":4,
-		"price":5
+		"price":3
 	},
 	"SoulSeed":{
 		"tile":"SoulStg1",
 		"type":"crop",
 		"frame":1,
-		"price":5
+		"price":1
 	},
 	"WeakWall":{
 		"tile":"WeakWall",
 		"type":"wall",
 		"frame":5,
-		"price":5
+		"price":1
 	},
 	"AverageWall":{
 		"tile":"AverageWall",
 		"type":"wall",
 		"frame":6,
-		"price":5
+		"price":2
 	},
 	"StrongWall":{
 		"tile":"StrongWall",
 		"type":"wall",
 		"frame":7,
-		"price":5
+		"price":3
 	},
 	"Hoe":{
 		"type":"hoe",
 		"frame":0,
 		"unlimited":true,
-		"price":5
+		"price":1
 	},
 	"Chest":{
 		"tile":"Chest",
 		"type":"storage",
 		"frame":8,
-		"price":5
+		"price":10
 	},
 	"SoulEssence":{
 		"type":"item",
@@ -63,7 +63,7 @@ var itemData = {
 		"type":"sword",
 		"frame":10,
 		"unlimited":true,
-		"price":5
+		"price":20
 	},
 }
 
@@ -88,7 +88,7 @@ var blockData = {
 		"SoulStg2":{
 			"atlus":Vector2i(4, 0),
 			"breakLayer":1,
-			"drops":["SoulEssence", "SoulEssence", "SoulSeed"]
+			"drops":["SoulEssence", "SoulSeed"]
 			},
 		"WeakWall":{
 			"atlus":Vector2i(0, 1),
@@ -133,9 +133,10 @@ var blockData = {
 	}
 
 var cycle = 1
-var time: int = 0
-var timeFloat = 0.0
+var time: int = 360
+var timeFloat = 360.0
 var timeScale = 15
+var nightDay = "Day"
 
 
 func _physics_process(delta):
@@ -144,6 +145,10 @@ func _physics_process(delta):
 		cycle += 1
 		timeFloat = 0
 	time = round(timeFloat)
+	if time < 360 or time >= 1080:
+		nightDay = "Night"
+	else:
+		nightDay = "Day"
 
 func getItemData(item, request := []):
 	var hold = {}
@@ -192,3 +197,12 @@ func filterBlockData(key: String, value):
 		if blockData[i].has(key) and blockData[i][key] == value:
 			hold[i] = blockData[i][key]
 	return hold
+
+func blocksHaveAtlus(atlus: Vector2i):
+	if typeof(atlus) == TYPE_VECTOR2I:
+		print(blockData.keys())
+		for i in blockData.keys():
+			print(i)
+			if blockData[i].has("atlus") and blockData[i]["atlus"] == atlus:
+				return true
+	return false
