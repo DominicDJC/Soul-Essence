@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b27qg1qcvno5j"]
+[gd_scene load_steps=15 format=3 uid="uid://b27qg1qcvno5j"]
 
 [ext_resource type="Texture2D" uid="uid://divlgkim52vjl" path="res://TileSets/Placeholder.png" id="1_0ecyk"]
 [ext_resource type="Script" path="res://TSCNs/Game/TileMap.gd" id="2_y1ob4"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dysutw1hlf5dj" path="res://Globals/InventoryItemChild/inventory_item_child.tscn" id="6_dcwfl"]
 [ext_resource type="Script" path="res://TSCNs/Game/MerchantManager.gd" id="7_nq1ve"]
 [ext_resource type="Script" path="res://TSCNs/Game/InventoryUI.gd" id="7_yg1xq"]
+[ext_resource type="Script" path="res://TSCNs/Game/EnemyManager.gd" id="8_aryv8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xnkf3"]
 resource_name = "Placeholder"
@@ -55,6 +56,9 @@ script = ExtResource("5_70vqj")
 
 [node name="MerchantManager" type="Node2D" parent="."]
 script = ExtResource("7_nq1ve")
+
+[node name="EnemyManager" type="Node2D" parent="."]
+script = ExtResource("8_aryv8")
 
 [node name="Player" parent="." instance=ExtResource("3_by06h")]
 position = Vector2(263, 158)

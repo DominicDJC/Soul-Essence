@@ -2,6 +2,7 @@ extends TileMap
 
 @onready var Chest = preload("res://TSCNs/Chest/chest.tscn")
 @onready var Crop = preload("res://TSCNs/Crop/crop.tscn")
+@onready var Wall = preload("res://TSCNs/Wall/wall.tscn")
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @export var permaTiles: PackedStringArray
@@ -43,8 +44,11 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 					match itemType:
 						"trap", "wall", "storage":
 							set_cell(0, tile, 2, getTile(itemTile))
-							if itemType == "storage":
-								createChest(tile)
+							match itemType:
+								"storage":
+									createChest(tile)
+								"wall":
+									createWall(tile, tileType)
 	if tileType != getTile(tile):
 		return true
 	else:
@@ -68,8 +72,11 @@ func clearTile(localPosition := get_local_mouse_position()):
 							destroyCrop(tile)
 					0:
 						set_cell(0, tile, 2, getTile("Land"))
-						if tileName == "Chest":
-							destroyChest(tile)
+						match tileName:
+							"Chest":
+								destroyChest(tile)
+							"WeakWall", "AverageWall", "StrongWall":
+								destroyWall(tile)
 				var drops = G.getBlockData(tileName, ["drops"])
 				for drop in drops:
 					DroppedItems.dropItem(drop, localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
@@ -89,6 +96,7 @@ func createChest(tile):
 	var c = Chest.instantiate()
 	c.tile = tile
 	c.type = "Chest"
+	c.position = map_to_local(tile)
 	add_child(c)
 
 func destroyChest(tile):
@@ -103,6 +111,7 @@ func createCrop(tile):
 	var c = Crop.instantiate()
 	c.tile = tile
 	c.type = "Crop"
+	c.position = map_to_local(tile)
 	add_child(c)
 
 func destroyCrop(tile):
@@ -113,8 +122,46 @@ func getCrop(tile := local_to_map(get_local_mouse_position())):
 		if i.type == "Crop" and i.tile == tile:
 			return i
 
+func getCrops():
+	var array = []
+	for i in get_children():
+		if i.type == "Crop":
+			array.push_back(i)
+	return array
+
+func createWall(tile, type):
+	var w = Wall.instantiate()
+	w.tile = tile
+	w.type = "Wall"
+	w.position = map_to_local(tile)
+	match type:
+		"WeakWall":
+			w.health = 10
+		"AverageWall":
+			w.health = 20
+		"StrongWall":
+			w.health = 30
+	add_child(w)
+
+func destroyWall(tile):
+	getWall(tile).queue_free()
+
+func getWall(tile := local_to_map(get_local_mouse_position())):
+	for i in get_children():
+		if i.type == "Wall" and i.tile == tile:
+			return i
+
 func centerPosition(pos := get_local_mouse_position()):
 	return map_to_local(local_to_map(pos))
 
 func posTile(pos := get_local_mouse_position()):
 	return getTile(local_to_map(pos))
+
+func enemyKillTile(tile, enemy):
+	var tileName = getTile(tile)
+	match tileName:
+		"SoulStg1", "SoulStg2":
+			for i in G.getBlockData(tileName, ["drops"]):
+				enemy.holding.push_back(i)
+			set_cell(0, tile, 2, getTile("Soil"))
+			destroyCrop(tile)

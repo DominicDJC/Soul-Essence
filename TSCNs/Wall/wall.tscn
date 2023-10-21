@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvhgynxecs5tn"]
+
+[ext_resource type="Script" path="res://TSCNs/Wall/wall.gd" id="1_24yxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enibf"]
+size = Vector2(14, 14)
+
+[node name="wall" type="Node2D"]
+script = ExtResource("1_24yxm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_enibf")
