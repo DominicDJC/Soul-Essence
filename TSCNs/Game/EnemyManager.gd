@@ -3,6 +3,7 @@ extends Node2D
 @onready var WorldMap = $"../WorldMap"
 @onready var Enemy = preload("res://TSCNs/Enemy/enemy.tscn")
 @onready var DroppedItems = $"../DroppedItems"
+@onready var Player = $"../Player"
 
 
 func _ready():
@@ -13,4 +14,5 @@ func createEnemy(pos):
 	e.position = pos
 	e.WorldMap = WorldMap
 	e.DroppedItems = DroppedItems
+	e.Player = Player
 	add_child(e)
