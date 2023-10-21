@@ -37,9 +37,6 @@ func _ready():
 	target = origin
 
 func _physics_process(delta):
-	print(position.distance_to(target))
-	print(position)
-	print(target)
 	if position.distance_to(target) > 15:
 		if target == origin:
 			position.y += speed * delta

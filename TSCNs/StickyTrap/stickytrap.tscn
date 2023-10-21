@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://n5bamyf10xoj"]
+
+[ext_resource type="Script" path="res://TSCNs/StickyTrap/stickytrap.gd" id="1_8on8o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qh36u"]
+size = Vector2(16, 16)
+
+[node name="stickytrap" type="Area2D"]
+script = ExtResource("1_8on8o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qh36u")
+
+[connection signal="body_entered" from="." to="." method="bodyEntered"]
+[connection signal="body_exited" from="." to="." method="bodyExited"]

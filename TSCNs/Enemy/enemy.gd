@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 50
+
 @onready var Sprite = $Enemy
 @onready var HealthBar = $HealthBar
 const MAX_HEALTH = 30
@@ -9,12 +9,15 @@ var Portal: Node2D
 var Player: Node2D
 var DroppedItems: Node2D
 var WorldMap: TileMap
+var virtualPosition = Vector2(0, 0)
 var target: Node2D
+var speed: int = 50
 var cooldown = 3.0
 var holding = []
 var type = "Enemy"
 var health = MAX_HEALTH
 var knockback = false
+var knockbackSpeed = 0
 var angle
 var angry = 0.0
 var surroundings = []
@@ -22,6 +25,7 @@ var surroundingsCountdown = 0.0
 
 
 func _physics_process(delta):
+	print(speed)
 	attackSurroundings(delta)
 	if angry > 0:
 		angry -= delta
@@ -39,9 +43,8 @@ func _physics_process(delta):
 				angle = position.angle_to_point(target.position)
 				velocity.x = cos(angle)
 				velocity.y = sin(angle)
-				move_and_slide()
-				position += velocity
-				position = Vector2(round(position.x), round(position.y))
+				position += velocity * delta * speed
+				#position = Vector2(round(position.x), round(position.y))
 				cooldown = 0.0 if angry > 0 else 3.0
 			else:
 				if G.nightDay == "Day":
@@ -63,7 +66,7 @@ func _physics_process(delta):
 			cooldown -= delta
 			velocity.x = cos(angle)
 			velocity.y = sin(angle)
-			velocity = velocity * speed * cooldown * 8
+			velocity = velocity * knockbackSpeed * cooldown * 8
 			move_and_slide()
 			position = Vector2(round(position.x), round(position.y))
 		else:
@@ -96,7 +99,7 @@ func getTarget():
 		angry = 1.0
 		target = Player
 
-func hurt(source, damage := 5):
+func hurt(source, damage := 5, newKnockbackSpeed := speed, newAngry := 10.0):
 	if health > 0:
 		health -= damage
 		HealthBar.update(health, MAX_HEALTH)
@@ -105,8 +108,9 @@ func hurt(source, damage := 5):
 			angle = source.position.angle_to_point(position)
 			knockback = true
 			cooldown = 0.5
-			angry = 10.0
+			angry = newAngry
 			target = source
+			knockbackSpeed = newKnockbackSpeed
 
 func hurtAnimation(kill := false):
 	for i in 5:

@@ -17,7 +17,7 @@ var openedMerchant = null
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SoulSeed":5}, {"WeakWall":20}])
+	prepareInventory([{"Hoe":1}, {"SoulSeed":5}, {"WeakWall":20}, {"SpikeTrap":5}, {"StickyTrap":5}])
 
 func prepareInventory(preset := []):
 	items = preset

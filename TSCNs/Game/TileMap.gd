@@ -3,6 +3,8 @@ extends TileMap
 @onready var Chest = preload("res://TSCNs/Chest/chest.tscn")
 @onready var Crop = preload("res://TSCNs/Crop/crop.tscn")
 @onready var Wall = preload("res://TSCNs/Wall/wall.tscn")
+@onready var SpikeTrap = preload("res://TSCNs/SpikeTrap/spiketrap.tscn")
+@onready var StickyTrap = preload("res://TSCNs/StickyTrap/stickytrap.tscn")
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @export var permaTiles: PackedStringArray
@@ -49,6 +51,12 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 									createChest(tile)
 								"wall":
 									createWall(tile, tileType)
+								"trap":
+									match itemTile:
+										"Spike1":
+											createTrap(tile, "SpikeTrap")
+										"Sticky":
+											createTrap(tile, "StickyTrap")
 	if tileType != getTile(tile):
 		return true
 	else:
@@ -78,6 +86,10 @@ func clearTile(localPosition := get_local_mouse_position()):
 									destroyChest(tile)
 								"WeakWall", "AverageWall", "StrongWall":
 									destroyWall(tile)
+								"Spike1", "Spike2":
+									destroyTrap("SpikeTrap", tile)
+								"Sticky":
+									destroyTrap("StickyTrap", tile)
 					var drops = G.getBlockData(tileName, ["drops"])
 					if tileName == "SoulStg2" and rng.randi_range(0, 2) == 0:
 						DroppedItems.dropItem("SoulSeed", localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
@@ -153,6 +165,27 @@ func destroyWall(tile):
 func getWall(tile := local_to_map(get_local_mouse_position())):
 	for i in get_children():
 		if i.type == "Wall" and i.tile == tile:
+			return i
+
+func createTrap(tile, type):
+	var t
+	match type:
+		"SpikeTrap":
+			t = SpikeTrap.instantiate()
+		"StickyTrap":
+			t = StickyTrap.instantiate()
+	t.tile = tile
+	t.type = type
+	t.position = map_to_local(tile)
+	t.WorldMap = self
+	add_child(t)
+
+func destroyTrap(type, tile):
+	getTrap(type, tile).queue_free()
+
+func getTrap(type, tile := local_to_map(get_local_mouse_position())):
+	for i in get_children():
+		if i.type == type and i.tile == tile:
 			return i
 
 func centerPosition(pos := get_local_mouse_position()):

@@ -134,7 +134,7 @@ var blockData = {
 
 var cycle = 1
 var time: int = 360
-var timeFloat = 360.0
+var timeFloat = 1080.0 #360.0
 var timeScale = 15
 var nightDay = "Day"
 
@@ -200,9 +200,7 @@ func filterBlockData(key: String, value):
 
 func blocksHaveAtlus(atlus: Vector2i):
 	if typeof(atlus) == TYPE_VECTOR2I:
-		print(blockData.keys())
 		for i in blockData.keys():
-			print(i)
 			if blockData[i].has("atlus") and blockData[i]["atlus"] == atlus:
 				return true
 	return false
