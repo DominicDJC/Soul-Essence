@@ -6,6 +6,8 @@ extends TileMap
 @onready var SpikeTrap = preload("res://TSCNs/SpikeTrap/spiketrap.tscn")
 @onready var StickyTrap = preload("res://TSCNs/StickyTrap/stickytrap.tscn")
 @onready var PoisonTrap = preload("res://TSCNs/PoisonTrap/poisontrap.tscn")
+@onready var Directional = preload("res://TSCNs/Directional/directional.tscn")
+@onready var Turret = preload("res://TSCNs/Turret/turret.tscn")
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @export var permaTiles: PackedStringArray
@@ -45,7 +47,7 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 							createCrop(tile)
 				"Land":
 					match itemType:
-						"trap", "wall", "storage":
+						"trap", "wall", "storage", "projectile":
 							setTile(tile, itemTile)
 							match itemType:
 								"storage":
@@ -60,6 +62,8 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 											createTrap(tile, "StickyTrap")
 										"Poison":
 											createTrap(tile, "PoisonTrap")
+								"projectile":
+									createProjectile(tile, itemTile)
 	if tileType != getTile(tile):
 		return true
 	else:
@@ -95,6 +99,8 @@ func clearTile(localPosition := get_local_mouse_position()):
 									destroyTrap("StickyTrap", tile)
 								"Poison":
 									destroyTrap("PoisonTrap", tile)
+								"Directional", "Turret":
+									destroyProjectile(tileName, tile)
 					var drops = G.getBlockData(tileName, ["drops"])
 					if tileName == "SoulStg2" and rng.randi_range(0, 2) == 0:
 						DroppedItems.dropItem("SoulSeed", localPosition + Vector2(rng.randi_range(-10, 10), rng.randi_range(-10, 10)))
@@ -157,11 +163,11 @@ func createWall(tile, type):
 	w.WorldMap = self
 	match type:
 		"WeakWall":
-			w.health = 10
-		"AverageWall":
-			w.health = 20
-		"StrongWall":
 			w.health = 30
+		"AverageWall":
+			w.health = 60
+		"StrongWall":
+			w.health = 100
 	add_child(w)
 
 func destroyWall(tile):
@@ -195,6 +201,27 @@ func getTrap(type, tile := local_to_map(get_local_mouse_position())):
 		if i.type == type and i.tile == tile:
 			return i
 
+func createProjectile(tile, type):
+	var p
+	match type:
+		"Directional":
+			p = Directional.instantiate()
+		"Turret":
+			p = Turret.instantiate()
+	p.tile = tile
+	p.type = type
+	p.position = map_to_local(tile)
+	p.WorldMap = self
+	add_child(p)
+
+func destroyProjectile(type, tile):
+	getProjectile(type, tile).queue_free()
+
+func getProjectile(type, tile := local_to_map(get_local_mouse_position())):
+	for i in get_children():
+		if i.type == type and i.tile == tile:
+			return i
+
 func centerPosition(pos := get_local_mouse_position()):
 	return map_to_local(local_to_map(pos))
 
@@ -209,5 +236,5 @@ func enemyKillTile(tile, enemy):
 				enemy.holding.push_back(i)
 			setTile(tile, "Soil")
 			destroyCrop(tile)
-		"WeakWall", "AverageWall", "StrongWall":
+		"WeakWall", "AverageWall", "StrongWall", "Directional", "Turret":
 			setTile(tile, "Land")

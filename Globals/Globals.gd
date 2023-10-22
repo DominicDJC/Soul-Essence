@@ -11,13 +11,13 @@ var itemData = {
 		"tile":"Sticky",
 		"type":"trap",
 		"frame":3,
-		"price":2
+		"price":1
 	},
 	"PoisonTrap":{
 		"tile":"Poison",
 		"type":"trap",
 		"frame":4,
-		"price":3
+		"price":1
 	},
 	"SoulSeed":{
 		"tile":"SoulStg1",
@@ -35,13 +35,13 @@ var itemData = {
 		"tile":"AverageWall",
 		"type":"wall",
 		"frame":6,
-		"price":2
+		"price":3
 	},
 	"StrongWall":{
 		"tile":"StrongWall",
 		"type":"wall",
 		"frame":7,
-		"price":3
+		"price":5
 	},
 	"Hoe":{
 		"type":"hoe",
@@ -63,7 +63,7 @@ var itemData = {
 		"type":"sword",
 		"frame":10,
 		"unlimited":true,
-		"price":20
+		"price":15
 	},
 	"Gun":{
 		"type":"gun",
@@ -72,14 +72,16 @@ var itemData = {
 		"price":30
 	},
 	"Directional":{
+		"tile":"Directional",
 		"type":"projectile",
 		"frame":12,
-		"price":20
+		"price":40
 	},
 	"Turret":{
+		"tile":"Turret",
 		"type":"projectile",
 		"frame":13,
-		"price":40
+		"price":50
 	}
 }
 
@@ -161,9 +163,15 @@ var blockData = {
 var cycle = 1
 var time: int = 360
 var timeFloat = 360.0
-var timeScale = 15
+var timeScale = 7
 var nightDay = "Day"
 
+signal gameover
+
+
+func _ready():
+	await self.gameover
+	get_tree().quit()
 
 func _physics_process(delta):
 	timeFloat += timeScale * delta

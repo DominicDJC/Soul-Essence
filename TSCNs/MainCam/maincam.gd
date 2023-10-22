@@ -7,6 +7,7 @@ extends Camera2D
 
 func _ready():
 	zoom = defaultZoom
+	position = Target.position
 
 func _physics_process(delta):
 	position = lerp(position, Target.position, speed * delta)

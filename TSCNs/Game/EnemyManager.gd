@@ -5,22 +5,26 @@ extends Node2D
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @onready var Portal = $"../Portal"
-var maxEnemies = 3
+var maxEnemies = 1
 var spawnCooldown = 10.0
 var rng = RandomNumberGenerator.new()
+var escapedEnemies = 0
 
 
 func _ready():
 	rng.randomize()
 
 func _physics_process(delta):
+	if escapedEnemies > 4:
+		G.gameover.emit()
+	maxEnemies = round(float(G.cycle) / 2.0)
 	if G.nightDay == "Night":
 		if spawnCooldown > 0:
 			spawnCooldown -= delta
 		else:
 			if get_child_count() - 2 < maxEnemies:
 				spawnEnemy()
-				spawnCooldown = 10.0
+				spawnCooldown = 10.0 - (float(G.cycle) / 10.0)
 
 func spawnEnemy():
 	var pos = Vector2(0, 0)

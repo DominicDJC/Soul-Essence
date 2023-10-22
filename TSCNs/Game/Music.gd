@@ -22,7 +22,6 @@ func _process(delta):
 		nightDay = "Day"
 	if nightDayOld != nightDay:
 		nightDayOld = nightDay
-		print(nightDay)
 		if nightDayOld == "Day":
 			nightPosition = await fadeOut()
 			stream = dayTrack

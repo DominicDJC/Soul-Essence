@@ -142,9 +142,9 @@ func essenceCheck():
 
 func areaEntered(area):
 	if area.get_parent().name == "Portal" and essenceCheck():
+		get_parent().escapedEnemies += 1
 		get_parent().remove_child(self)
 		queue_free()
-		print("bye bye")
 
 
 func bodyEntered(body):
@@ -175,8 +175,6 @@ func runEffects(delta):
 		if effects[i].has("poison"):
 			var timer = effects[i]["poison"]
 			var count = effects[i]["count"]
-			print("Timer: " + str(timer))
-			print("Count: " + str(count))
 			if timer > 0:
 				timer -= delta
 			else:

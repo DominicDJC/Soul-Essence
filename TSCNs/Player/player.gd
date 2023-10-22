@@ -54,6 +54,9 @@ func _physics_process(delta):
 		cooldown -= delta
 	else:
 		cooldown = 0
+	
+	if Input.is_action_just_pressed("secondary") and WorldMap.posTile() == "Directional":
+		WorldMap.getProjectile("Directional").doRotate()
 
 func read_input(delta):
 	if !knockback:
@@ -117,5 +120,5 @@ func hurtAnimation():
 		await get_tree().create_timer(0.05).timeout
 
 func kill():
-	pass
+	G.gameover.emit()
 

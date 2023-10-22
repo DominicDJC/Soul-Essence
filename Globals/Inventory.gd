@@ -45,32 +45,33 @@ func createTile(parent: Control, index, type := "Inventory", data := {}):
 
 func grabItem(index):
 	var itemData = getItemDataByIndex(index)
-	if heldItemFallbackIndex == null and heldItem == {}:
-		if itemData != {}:
-			heldItemFallbackIndex = index
-			heldItem = itemData
-			clearItemByIndex(index)
-	elif itemData == {}:
-		items[index] = heldItem
-		heldItem = {}
-		heldItemFallbackIndex = null
-	elif itemData != {} and itemData.keys()[0] == heldItem.keys()[0]:
-		var itemKey = itemData.keys()[0]
-		var itemCount = itemData[itemKey]
-		if itemCount + heldItem[itemKey] < 100:
-			items[index] = {itemKey:itemCount + heldItem[itemKey]}
+	if itemData != null:
+		if heldItemFallbackIndex == null and heldItem == {}:
+			if itemData != {}:
+				heldItemFallbackIndex = index
+				heldItem = itemData
+				clearItemByIndex(index)
+		elif itemData == {}:
+			items[index] = heldItem
 			heldItem = {}
 			heldItemFallbackIndex = null
+		elif itemData != {} and itemData.keys()[0] == heldItem.keys()[0]:
+			var itemKey = itemData.keys()[0]
+			var itemCount = itemData[itemKey]
+			if itemCount + heldItem[itemKey] < 100:
+				items[index] = {itemKey:itemCount + heldItem[itemKey]}
+				heldItem = {}
+				heldItemFallbackIndex = null
+			else:
+				items[index] = {itemKey:99}
+				heldItem = {itemKey:itemCount + heldItem[itemKey] - 99}
 		else:
-			items[index] = {itemKey:99}
-			heldItem = {itemKey:itemCount + heldItem[itemKey] - 99}
-	else:
-		var value = items[index]
-		items[index] = heldItem
-		items[heldItemFallbackIndex] = value
-		heldItem = {}
-		heldItemFallbackIndex = null
-	child.setData(heldItem)
+			var value = items[index]
+			items[index] = heldItem
+			items[heldItemFallbackIndex] = value
+			heldItem = {}
+			heldItemFallbackIndex = null
+		child.setData(heldItem)
 
 func carryItem(itemData):
 	var itemKey = itemData.keys()[0]
@@ -89,7 +90,10 @@ func getItemByIndex(index):
 		return ""
 
 func getItemDataByIndex(index):
-	return items[index]
+	if items.size() > index:
+		return items[index]
+	else:
+		return null
 
 func addItem(item, count := 1):
 	var inventorySize = items.size()

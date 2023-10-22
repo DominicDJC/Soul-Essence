@@ -73,7 +73,7 @@ func prepareItems():
 func itemPool(type):
 	match type:
 		"TrapGuy":
-			return ["SpikeTrap", "StickyTrap", "PoisonTrap"]
+			return ["SpikeTrap", "StickyTrap", "PoisonTrap", "Directional", "Turret"]
 		"BuilderGuy":
 			return ["WeakWall", "AverageWall", "StrongWall", "Chest"]
 		"WeaponsGuy":
