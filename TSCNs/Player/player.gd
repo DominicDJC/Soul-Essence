@@ -18,9 +18,20 @@ var moveCooldown = 0.0
 var angle
 var knockback = false
 var hurtCooldown = 0.0
+var healCooldown = 0.0
 
 
 func _physics_process(delta):
+	if health < MAX_HEATLH:
+		if healCooldown > 0:
+			healCooldown -= delta
+		else:
+			healCooldown = 10.0
+			health += 1
+	if health > MAX_HEATLH:
+		health = MAX_HEATLH
+		
+	
 	if hurtCooldown > 0:
 		hurtCooldown -= delta
 	

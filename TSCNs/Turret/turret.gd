@@ -2,7 +2,7 @@ extends Area2D
 
 var cooldown = 0.0
 var enemies = []
-var health = 100
+var health = 80
 var tile: Vector2i
 var type = "Turret"
 var WorldMap: TileMap
@@ -33,4 +33,4 @@ func bodyExited(body):
 func hurt(source, damage := 5):
 	health -= damage
 	if health < 0:
-		WorldMap.enemyKillTile(tile, source)
+		WorldMap.enemyKillTile(tile, source, self)

@@ -18,7 +18,7 @@ signal merchant_close
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SoulSeed":5}])
+	prepareInventory([{"Hoe":1}, {"SoulSeed":5}, {"StrongWall":1}, {"AverageWall":1}, {"WeakWall":1}, {"Directional":1}, {"Turret":1}])
 
 func _physics_process(delta):
 	if !open and heldItem != {}:

@@ -4,7 +4,7 @@ extends Node2D
 @onready var Area = $Area2D
 var enemies = []
 var cooldown = 0.0
-var health = 75
+var health = 60
 var rotations = 0
 var tile: Vector2i
 var type = "Directional"
@@ -37,3 +37,8 @@ func bodyEntered(body):
 func bodyExited(body):
 	if enemies.has(body):
 		enemies.erase(body)
+
+func hurt(source, damage := 5):
+	health -= damage
+	if health < 0:
+		WorldMap.enemyKillTile(tile, source, self)

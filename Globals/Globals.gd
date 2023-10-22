@@ -162,7 +162,7 @@ var blockData = {
 
 var cycle = 1
 var time: int = 360
-var timeFloat = 360.0
+var timeFloat = 900.0#360.0
 var timeScale = 7
 var nightDay = "Day"
 

@@ -53,7 +53,7 @@ func _physics_process(delta):
 					queue_free()
 				if cooldown > 0:
 					cooldown -= delta
-				else:
+				elif health > 0:
 					if angry > 0:
 						target.hurt(self)
 					else:
@@ -148,7 +148,7 @@ func areaEntered(area):
 
 
 func bodyEntered(body):
-	if ("type" in body.get_parent()) and body.get_parent().type == "Wall":
+	if ("type" in body.get_parent()) and ["Wall", "Directional", "Turret"].has(body.get_parent().type):
 		surroundings.push_back(body.get_parent())
 
 func bodyExited(body):
@@ -156,13 +156,17 @@ func bodyExited(body):
 		surroundings.erase(body.get_parent())
 
 func attackSurroundings(delta):
-	if surroundings != []:
-		if surroundingsCountdown > 0:
-			surroundingsCountdown -= delta
+	if health > 0:
+		print(surroundings)
+		print(surroundingsCountdown)
+		if surroundings != []:
+			if surroundingsCountdown > 0:
+				surroundingsCountdown -= delta
+			else:
+				surroundingsCountdown = 3.0
+				closest(surroundings).hurt(self)
 		else:
 			surroundingsCountdown = 3.0
-			for i in surroundings:
-				i.hurt(self)
 
 func poison():
 	for i in effects.size():

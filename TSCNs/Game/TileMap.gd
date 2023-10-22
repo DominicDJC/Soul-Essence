@@ -53,7 +53,7 @@ func placeTile(item, localPosition := get_local_mouse_position()):
 								"storage":
 									createChest(tile)
 								"wall":
-									createWall(tile, tileType)
+									createWall(tile, itemTile)
 								"trap":
 									match itemTile:
 										"Spike1":
@@ -163,11 +163,11 @@ func createWall(tile, type):
 	w.WorldMap = self
 	match type:
 		"WeakWall":
-			w.health = 30
+			w.health = 10
 		"AverageWall":
-			w.health = 60
+			w.health = 20
 		"StrongWall":
-			w.health = 100
+			w.health = 30
 	add_child(w)
 
 func destroyWall(tile):
@@ -228,7 +228,7 @@ func centerPosition(pos := get_local_mouse_position()):
 func posTile(pos := get_local_mouse_position()):
 	return getTile(local_to_map(pos))
 
-func enemyKillTile(tile, enemy):
+func enemyKillTile(tile, enemy, child):
 	var tileName = getTile(tile)
 	match tileName:
 		"SoulStg1", "SoulStg2":
@@ -238,3 +238,5 @@ func enemyKillTile(tile, enemy):
 			destroyCrop(tile)
 		"WeakWall", "AverageWall", "StrongWall", "Directional", "Turret":
 			setTile(tile, "Land")
+			remove_child(child)
+			child.queue_free()

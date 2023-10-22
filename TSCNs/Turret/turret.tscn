@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bt04s1ay6doqj"]
+[gd_scene load_steps=4 format=3 uid="uid://bt04s1ay6doqj"]
 
 [ext_resource type="Script" path="res://TSCNs/Turret/turret.gd" id="1_vp7ib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjh37"]
 radius = 59.0339
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfeev"]
+size = Vector2(12, 14)
+
 [node name="turret" type="Area2D"]
 script = ExtResource("1_vp7ib")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kjh37")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_cfeev")
 
 [connection signal="body_entered" from="." to="." method="bodyEntered"]
 [connection signal="body_exited" from="." to="." method="bodyExited"]
