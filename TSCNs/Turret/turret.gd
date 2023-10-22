@@ -19,7 +19,7 @@ func fire():
 	for i in enemies.size() - 1:
 		if position.distance_to(enemies[i].position) < position.distance_to(closest.position):
 			closest = enemies[i]
-	closest.lightHurt(10)
+	closest.hurt(self, 10, 50, 0)
 	cooldown = 5
 
 func bodyEntered(body):

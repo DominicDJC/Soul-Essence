@@ -40,6 +40,7 @@ func _ready():
 	target = origin
 
 func _physics_process(delta):
+	Sprite.flip_h = (Player.position.x < position.x)
 	if G.nightDay == "Night":
 		target = origin
 	if position.distance_to(target) > 15:

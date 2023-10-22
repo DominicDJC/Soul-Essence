@@ -27,7 +27,7 @@ func doRotate():
 
 func fire():
 	for i in enemies:
-		i.lightHurt(5)
+		i.hurt(self, 5, 50, 0)
 	cooldown = 5
 
 func bodyEntered(body):
