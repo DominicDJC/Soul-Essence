@@ -116,13 +116,23 @@ func isPrimaryToTheLeft():
 	return (get_local_mouse_position().x < 0)
 
 func hurt(source, damage := 5):
-	health -= damage
-	hurtAnimation()
-	angle = source.position.angle_to_point(position)
-	knockback = true
-	moveCooldown = 0.5
-	if health <= 0:
-		kill()
+	if hurtCooldown <= 0:
+		print("Hurt by:")
+		print(source)
+		print("Damage:")
+		print(damage)
+		print("Current health:")
+		print(health)
+		health -= damage
+		print("Health following calculation:")
+		print(health)
+		hurtAnimation()
+		angle = source.position.angle_to_point(position)
+		knockback = true
+		moveCooldown = 0.5
+		hurtCooldown = 1.0
+		if health <= 0:
+			kill()
 
 func hurtAnimation():
 	for i in 5:

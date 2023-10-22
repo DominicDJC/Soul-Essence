@@ -4,8 +4,11 @@ extends Camera2D
 @export var speed = 5
 @export var defaultZoom = Vector2(2, 2)
 @export var zoomScale = Vector2(.5, .5)
+@onready var Center = $"../Center"
 
 func _ready():
+	G.MainCam = self
+	G.Center = Center
 	zoom = defaultZoom
 	position = Target.position
 

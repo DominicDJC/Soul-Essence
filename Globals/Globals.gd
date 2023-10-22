@@ -170,12 +170,17 @@ var timeFloat = 360.0
 var timeScale = 7
 var nightDay = "Day"
 
+var MainCam: Camera2D
+var Center: Node2D
+var GameOver: Control
 signal gameover
 
 
 func _ready():
 	await self.gameover
-	get_tree().quit()
+	MainCam.Target = Center
+	GameOver.visible = true
+	get_tree().paused = true
 
 func _physics_process(delta):
 	timeFloat += timeScale * delta

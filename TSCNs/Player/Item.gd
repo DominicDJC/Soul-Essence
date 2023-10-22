@@ -3,6 +3,7 @@ extends Sprite2D
 @onready var Player = $"../.."
 @onready var MeleeRange = $"../../MeleeRange"
 @onready var RangedRange = $"../../RangedRange"
+@onready var White = $"../../RangedRange/White"
 var targetAngle = 0
 var speed = 0
 var action = ""
@@ -53,9 +54,12 @@ func primary(selectedItem, interactingItem):
 				action = "ShootSlingshot"
 				frame = 11
 				visible = true
+				White.visible = true
 				for i in RangedRange.getEnemies():
 					i.hurt(Player, 5)
-				await get_tree().create_timer(.5).timeout
+				await get_tree().create_timer(.05).timeout
+				White.visible = false
+				await get_tree().create_timer(.45).timeout
 				visible = false
 				action = ""
 

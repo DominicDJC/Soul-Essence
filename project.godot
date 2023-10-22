@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GodotWildJam"
-run/main_scene="res://TSCNs/Game/game.tscn"
+run/main_scene="res://TSCNs/MainMenu/main_menu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 

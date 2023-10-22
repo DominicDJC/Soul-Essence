@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpw6hhec66q6b"]
+[gd_scene load_steps=11 format=3 uid="uid://cpw6hhec66q6b"]
 
 [ext_resource type="Script" path="res://TSCNs/Player/player.gd" id="1_de8k1"]
 [ext_resource type="Texture2D" uid="uid://d1esiokuq1jx8" path="res://Textures/Player/Death.tres" id="2_5ptgu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://TSCNs/Player/Item.gd" id="4_oi6ac"]
 [ext_resource type="Script" path="res://TSCNs/Player/MeleeRange.gd" id="5_dmrji"]
 [ext_resource type="Script" path="res://TSCNs/Player/RangedRange.gd" id="5_x4pay"]
+[ext_resource type="Texture2D" uid="uid://dx5enurebgnwd" path="res://Textures/white1x1.png" id="7_bc8er"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kda36"]
 radius = 8.0
@@ -56,6 +57,12 @@ script = ExtResource("5_x4pay")
 position = Vector2(329.5, -3.57628e-07)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_aeu72")
+
+[node name="White" type="Sprite2D" parent="RangedRange"]
+visible = false
+position = Vector2(340, 0)
+scale = Vector2(638, 1)
+texture = ExtResource("7_bc8er")
 
 [connection signal="body_entered" from="MeleeRange" to="MeleeRange" method="objectEntered"]
 [connection signal="body_exited" from="MeleeRange" to="MeleeRange" method="objectExited"]

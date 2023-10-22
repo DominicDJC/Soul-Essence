@@ -195,30 +195,20 @@ func hasEmptySpace():
 func canHold(itemData):
 	if itemData != {}:
 		var key = itemData.keys()[0]
-		print(key)
 		var count = itemData[key]
-		print(count)
 		for i in items.size():
-			print(i)
 			if items[i] == {} and i != heldItemFallbackIndex:
-				print("empty slot")
 				return true
 			else:
-				print("else")
 				var iKey
 				var iCount
 				if i == heldItemFallbackIndex:
-					print("i == heldItemFallbackIndex")
 					iKey = heldItem.keys()[0]
 					iCount = heldItem[iKey]
 				else:
-					print("else")
 					iKey = items[i].keys()[0]
 					iCount = items[i][iKey]
-				print(iKey)
-				print(iCount)
 				if (iCount + count < 100) and iKey == key:
-					print("they chillin fr")
 					return true
 #			if i == {}:
 #				return true
@@ -232,7 +222,6 @@ func canHold(itemData):
 #						return true
 #				elif (iCount + count < 100) and iKey == key:
 #					return true
-	print("no good")
 	return false
 
 func nextEmpty():
