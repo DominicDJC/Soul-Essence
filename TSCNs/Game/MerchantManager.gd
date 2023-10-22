@@ -24,6 +24,8 @@ func _physics_process(delta):
 			delay -= delta
 		else:
 			delay = rng.randi_range(delayRange[0], delayRange[1])
+			if get_child_count() == 1:
+				await get_child(0).done
 			createMerchant(pickMerchant())
 	else:
 		nightDayOld = G.nightDay

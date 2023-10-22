@@ -15,6 +15,7 @@ var mouseIn = false
 var target
 var speed = 50
 var origin
+signal done
 
 
 func _ready():
@@ -34,20 +35,26 @@ func _ready():
 	prepareItems()
 	MerchantUI.visible = false
 	await get_tree().create_timer(30).timeout
+	if Inventory.openedMerchant == self:
+		await Inventory.merchant_close
 	target = origin
 
 func _physics_process(delta):
+	if G.nightDay == "Night":
+		target = origin
 	if position.distance_to(target) > 15:
-		if target == origin:
-			position.y += speed * delta
-		else:
-			position.y -= speed * delta
+		if Inventory.openedMerchant != self:
+			if target == origin:
+				position.y += speed * delta
+			else:
+				position.y -= speed * delta
 	else:
 		if target == origin:
+			done.emit()
 			get_parent().remove_child(self)
 			queue_free()
 	
-	if mouseIn and position.distance_to(Player.position) < 110:
+	if mouseIn and position.distance_to(Player.position) < 110 and !(target == origin and position.distance_to(target) < 20):
 		if !Player.merchants.has(self):
 			Player.merchants.push_back(self)
 	else:

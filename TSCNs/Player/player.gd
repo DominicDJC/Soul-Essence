@@ -17,9 +17,13 @@ var health = MAX_HEATLH
 var moveCooldown = 0.0
 var angle
 var knockback = false
+var hurtCooldown = 0.0
 
 
 func _physics_process(delta):
+	if hurtCooldown > 0:
+		hurtCooldown -= delta
+	
 	HealthBar.update(health, MAX_HEATLH)
 	read_input(delta)
 	selectedItem = Inventory.getItemByIndex(Hotbar.selection)

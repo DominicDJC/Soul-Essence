@@ -28,7 +28,7 @@ var effects = []
 func _physics_process(delta):
 	runEffects(delta)
 	attackSurroundings(delta)
-	if angry > 0 and !(G.nightDay == "Day"):
+	if angry > 0 and G.nightDay == "Night":
 		angry -= delta
 	elif essenceCheck():
 		target = Portal

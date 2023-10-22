@@ -70,6 +70,16 @@ var itemData = {
 		"frame":11,
 		"unlimited":true,
 		"price":30
+	},
+	"Directional":{
+		"type":"projectile",
+		"frame":12,
+		"price":20
+	},
+	"Turret":{
+		"type":"projectile",
+		"frame":13,
+		"price":40
 	}
 }
 
@@ -135,12 +145,22 @@ var blockData = {
 			"atlus":Vector2i(3, 1),
 			"breakLayer":0,
 			"drops": ["Chest"]
+		},
+		"Directional":{
+			"atlus":Vector2i(4, 1),
+			"breakLayer":0,
+			"drops": ["Directional"]
+		},
+		"Turret":{
+			"atlus":Vector2i(5, 1),
+			"breakLayer":0,
+			"drops": ["Turret"]
 		}
 	}
 
 var cycle = 1
 var time: int = 360
-var timeFloat = 1080.0 #360.0
+var timeFloat = 360.0
 var timeScale = 15
 var nightDay = "Day"
 

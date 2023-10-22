@@ -18,8 +18,9 @@ func _physics_process(delta):
 		if spawnCooldown > 0:
 			spawnCooldown -= delta
 		else:
-			spawnEnemy()
-			spawnCooldown = 10.0
+			if get_child_count() - 2 < maxEnemies:
+				spawnEnemy()
+				spawnCooldown = 10.0
 
 func spawnEnemy():
 	var pos = Vector2(0, 0)
