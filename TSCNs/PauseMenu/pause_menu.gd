@@ -29,7 +29,7 @@ func quitPressed():
 
 
 func secondQuitPressed():
-	get_tree().quit()
+	pass
 
 func secondBackPressed():
 	Outside.visible = true
