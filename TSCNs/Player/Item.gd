@@ -48,18 +48,15 @@ func primary(selectedItem, interactingItem):
 				await swing(15, 160, -120)
 				visible = false
 				action = ""
-		"Gun":
-			if action != "ShootGun":
-				action = "ShootGun"
+		"Slingshot":
+			if action != "ShootSlingshot":
+				action = "ShootSlingshot"
 				frame = 11
 				visible = true
-				targetAngle = get_parent().position.angle_to_point(get_local_mouse_position())
-				rotation = get_parent().position.angle_to_point(get_local_mouse_position())
 				for i in RangedRange.getEnemies():
 					i.hurt(Player, 5)
 				await get_tree().create_timer(.5).timeout
 				visible = false
-				rotation_degrees = 0
 				action = ""
 
 func swing(newSpeed, newTargetAngle, start := 0):

@@ -55,7 +55,7 @@ func _physics_process(delta):
 				Inventory.removeItemByIndex(selectedItem, Hotbar.selection)
 				Hotbar.updateHotbar(Hotbar.selection)
 				lock = true
-		if Input.is_action_pressed("primary") and !["Hoe", "Sword", "Gun"].has(selectedItem):
+		if Input.is_action_pressed("primary") and !["Hoe", "Sword", "Slingshot"].has(selectedItem):
 			WorldMap.clearTile()
 	if Input.is_action_just_released("primary"):
 		WorldMap.lock = false

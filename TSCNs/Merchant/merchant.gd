@@ -77,7 +77,7 @@ func itemPool(type):
 		"BuilderGuy":
 			return ["WeakWall", "AverageWall", "StrongWall", "Chest"]
 		"WeaponsGuy":
-			return ["Hoe", "Sword", "Gun"]
+			return ["Hoe", "Sword", "Slingshot"]
 		"PlantGuy":
 			return ["SoulSeed", "SoulSeed", "SoulSeed"]
 

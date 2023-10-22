@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b27qg1qcvno5j"]
+[gd_scene load_steps=25 format=3 uid="uid://b27qg1qcvno5j"]
 
 [ext_resource type="Texture2D" uid="uid://divlgkim52vjl" path="res://TileSets/Placeholder.png" id="1_0ecyk"]
 [ext_resource type="Script" path="res://TSCNs/Game/TileMap.gd" id="2_y1ob4"]
@@ -141,6 +141,10 @@ sources/0 = SubResource("TileSetAtlasSource_fer1b")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_werld"]
 size = Vector2(128, 64)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_err12"]
+radius = 22.655
+height = 128.0
+
 [node name="Game" type="Node2D"]
 texture_filter = 1
 
@@ -164,6 +168,13 @@ position = Vector2(272, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Portal/Area2D"]
 shape = SubResource("RectangleShape2D_werld")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Portal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal/StaticBody2D"]
+position = Vector2(0, -9.83)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_err12")
 
 [node name="Outline" type="Sprite2D" parent="."]
 texture = ExtResource("3_s8k72")

@@ -65,8 +65,8 @@ var itemData = {
 		"unlimited":true,
 		"price":15
 	},
-	"Gun":{
-		"type":"gun",
+	"Slingshot":{
+		"type":"slingshot",
 		"frame":11,
 		"unlimited":true,
 		"price":30
