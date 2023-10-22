@@ -82,20 +82,21 @@ func read_input(delta):
 		if Input.is_action_pressed("right"):
 			velocity.x += 1
 		
-		if Input.is_action_pressed("primary") or Input.is_action_pressed("secondary"):
-			if isPrimaryToTheLeft():
-				PlayerSprite.flip_h = true
-				Item_Container.scale.x = -1
+		if Item.action == "":
+			if Input.is_action_pressed("primary") or Input.is_action_pressed("secondary"):
+				if isPrimaryToTheLeft():
+					PlayerSprite.flip_h = true
+					Item_Container.scale.x = -1
+				else:
+					PlayerSprite.flip_h = false
+					Item_Container.scale.x = 1
 			else:
-				PlayerSprite.flip_h = false
-				Item_Container.scale.x = 1
-		else:
-			if velocity.x > 0:
-				PlayerSprite.flip_h = false
-				Item_Container.scale.x = 1
-			if velocity.x < 0:
-				PlayerSprite.flip_h = true
-				Item_Container.scale.x = -1
+				if velocity.x > 0:
+					PlayerSprite.flip_h = false
+					Item_Container.scale.x = 1
+				if velocity.x < 0:
+					PlayerSprite.flip_h = true
+					Item_Container.scale.x = -1
 		
 		velocity = velocity.normalized() * speed
 		move_and_slide()

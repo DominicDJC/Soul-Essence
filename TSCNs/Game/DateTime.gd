@@ -4,8 +4,6 @@ extends Label
 
 func _physics_process(delta):
 	text = "Escaped Enemies: " + str(EnemyManager.escapedEnemies) + "/5\n"
-	text += "maxEnemies: " + str(EnemyManager.maxEnemies) + "\n"
-	text += "spawnCooldwon: " + str(EnemyManager.spawnCooldown) + "\n"
 	text += timeStandard() + "\n" + G.nightDay + ": " + str(G.cycle)
 
 func dayNight():

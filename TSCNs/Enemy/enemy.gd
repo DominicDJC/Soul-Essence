@@ -157,8 +157,6 @@ func bodyExited(body):
 
 func attackSurroundings(delta):
 	if health > 0:
-		print(surroundings)
-		print(surroundingsCountdown)
 		if surroundings != []:
 			if surroundingsCountdown > 0:
 				surroundingsCountdown -= delta
