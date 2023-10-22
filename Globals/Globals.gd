@@ -5,19 +5,22 @@ var itemData = {
 		"tile":"Spike1",
 		"type":"trap",
 		"frame":2,
-		"price":5
+		"price":5, 
+		"tooltip":"Instant, high damage"
 	},
 	"StickyTrap":{
 		"tile":"Sticky",
 		"type":"trap",
 		"frame":3,
-		"price":1
+		"price":1,
+		"tooltip":"Slows down enemies"
 	},
 	"PoisonTrap":{
 		"tile":"Poison",
 		"type":"trap",
 		"frame":4,
-		"price":1
+		"price":1,
+		"tooltip":"Inflict's poison damage\nover a short period of time"
 	},
 	"SoulSeed":{
 		"tile":"SoulStg1",
@@ -29,31 +32,36 @@ var itemData = {
 		"tile":"WeakWall",
 		"type":"wall",
 		"frame":5,
-		"price":1
+		"price":1,
+		"tooltip":"Use to block an\nenemies path"
 	},
 	"AverageWall":{
 		"tile":"AverageWall",
 		"type":"wall",
 		"frame":6,
-		"price":3
+		"price":3,
+		"tooltip":"Use to block an\nenemies path"
 	},
 	"StrongWall":{
 		"tile":"StrongWall",
 		"type":"wall",
 		"frame":7,
-		"price":5
+		"price":5,
+		"tooltip":"Use to block an\nenemies path"
 	},
 	"Hoe":{
 		"type":"hoe",
 		"frame":0,
 		"unlimited":true,
-		"price":1
+		"price":1,
+		"tooltip":"Tills ground and\nattacks enemies"
 	},
 	"Chest":{
 		"tile":"Chest",
 		"type":"storage",
 		"frame":8,
-		"price":10
+		"price":10,
+		"tooltip":"Hold's 9 stacks of items"
 	},
 	"SoulEssence":{
 		"type":"item",
@@ -75,13 +83,15 @@ var itemData = {
 		"tile":"Directional",
 		"type":"projectile",
 		"frame":12,
-		"price":40
+		"price":40,
+		"tooltip":"Fires in a specified direction\nRight-click to change direction"
 	},
 	"Turret":{
 		"tile":"Turret",
 		"type":"projectile",
 		"frame":13,
-		"price":50
+		"price":50,
+		"tooltip":"Shoots the closest enemy\nin its range"
 	}
 }
 

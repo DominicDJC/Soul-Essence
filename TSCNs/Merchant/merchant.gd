@@ -15,6 +15,7 @@ var mouseIn = false
 var target
 var speed = 50
 var origin
+var Message
 signal done
 
 

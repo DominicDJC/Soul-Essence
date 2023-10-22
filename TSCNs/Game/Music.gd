@@ -3,7 +3,7 @@ extends AudioStreamPlayer
 const FADE_OUT_TIME = 5
 const FADE_IN_TIME = 20
 var dayTrack = preload("res://Music/day loop.wav")
-var nightTrack = preload("res://Music/godot death jam theme1.wav")
+var nightTrack = preload("res://Music/night loop.wav")
 var dayPosition = 0.0
 var nightPosition = 0.0
 var nightDay = "Day"

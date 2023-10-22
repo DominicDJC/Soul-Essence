@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://slrusgwhtu0m"
+path="res://.godot/imported/night loop.wav-045994049d71fd6b4757e0ea6804422f.sample"
+
+[deps]
+
+source_file="res://Music/night loop.wav"
+dest_files=["res://.godot/imported/night loop.wav-045994049d71fd6b4757e0ea6804422f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

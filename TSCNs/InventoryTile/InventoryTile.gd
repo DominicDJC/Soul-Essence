@@ -15,7 +15,7 @@ func _physics_process(delta):
 		itemData = Inventory.getItemDataByIndex(itemIndex)
 		if itemData != {}:
 			var key = itemData.keys()[0]
-			Name.text = key
+			Name.text = key + tooltip(key)
 			var count = itemData[key]
 			Item.visible = true
 			Item.frame = G.getItemData(key, ["frame"])
@@ -36,7 +36,7 @@ func _physics_process(delta):
 			var count = itemData[key]
 			price = G.getItemData(key, ["price"])
 			priceItem = "SoulEssence"
-			Name.text = key + "\nPrice: " + str(price) + " " + priceItem
+			Name.text = key + "\nPrice: " + str(price) + " " + priceItem + tooltip(key)
 			if Inventory.canAfford({priceItem:price}):
 				Name.set("theme_override_colors/font_color",Color(255,255,255))
 			else:
@@ -52,8 +52,11 @@ func _physics_process(delta):
 			Count.text = ""
 			Name.text = ""
 		
-		Name.position = get_local_mouse_position() + Vector2(1, -20)
+		Name.position = get_local_mouse_position() + Vector2(1, -30)
 		Name.visible = is_hovered() and !has_focus()
+
+func tooltip(item):
+	return "\n" + G.getItemData(item, ["tooltip"])
 
 func setItem(newItemIndex):
 	itemIndex = newItemIndex

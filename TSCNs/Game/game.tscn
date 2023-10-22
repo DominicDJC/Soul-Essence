@@ -224,6 +224,17 @@ position = Vector2(0, -9.83)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_err12")
 
+[node name="Label" type="Label" parent="Portal"]
+offset_left = -64.0
+offset_top = -43.0
+offset_right = 64.0
+offset_bottom = -33.0
+theme_override_fonts/font = ExtResource("13_nwxos")
+theme_override_font_sizes/font_size = 8
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Outline" type="Sprite2D" parent="."]
 texture = ExtResource("3_s8k72")
 script = ExtResource("3_w8n4i")

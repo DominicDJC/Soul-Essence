@@ -3,6 +3,9 @@ extends Control
 @onready var FullscreenText = $VBoxContainer/Fullscreen/Label
 
 
+func _ready():
+	$AudioStreamPlayer.play()
+
 func playPressed():
 	get_tree().change_scene_to_file("res://TSCNs/Game/game.tscn")
 

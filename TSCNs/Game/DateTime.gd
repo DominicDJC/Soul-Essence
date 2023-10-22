@@ -3,8 +3,7 @@ extends Label
 @onready var EnemyManager = $"../../../EnemyManager"
 
 func _physics_process(delta):
-	text = "Escaped Enemies: " + str(EnemyManager.escapedEnemies) + "/5\n"
-	text += timeStandard() + "\n" + G.nightDay + ": " + str(G.cycle)
+	text = timeStandard() + "\n" + G.nightDay + ": " + str(G.cycle)
 
 func dayNight():
 	if G.time < 360 or G.time >= 1080:

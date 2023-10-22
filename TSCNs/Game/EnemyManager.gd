@@ -5,6 +5,7 @@ extends Node2D
 @onready var DroppedItems = $"../DroppedItems"
 @onready var Player = $"../Player"
 @onready var Portal = $"../Portal"
+@onready var PortalLabel = $"../Portal/Label"
 var maxEnemies = 1
 var spawnCooldown = 10.0
 var rng = RandomNumberGenerator.new()
@@ -15,6 +16,7 @@ func _ready():
 	rng.randomize()
 
 func _physics_process(delta):
+	PortalLabel.text = "Escaped Enemies: " + str(escapedEnemies) + "/5"
 	if escapedEnemies > 4:
 		G.gameover.emit()
 	maxEnemies = round(float(G.cycle) / 2.0)

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkwhfmptk28c"]
+
+[ext_resource type="Texture2D" uid="uid://ds6mceqlm40b7" path="res://Textures/Splash 2.png" id="1_wrxii"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t3yfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wrxii")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Splashes" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t3yfh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.61, 0.61)
