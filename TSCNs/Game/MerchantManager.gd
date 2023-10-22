@@ -36,8 +36,13 @@ func pickMerchant():
 	if useArray == []:
 		merchants.shuffle()
 		useArray = merchants
-	store = useArray[0]
-	useArray.pop_at(0)
+	if useArray[0] != previous:
+		store = useArray[0]
+		useArray.pop_at(0)
+	else:
+		store = useArray[1]
+		useArray.pop_at(1)
+	previous = store
 	return store
 
 func createMerchant(type):

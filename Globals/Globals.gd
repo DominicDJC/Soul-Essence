@@ -94,6 +94,10 @@ var blockData = {
 			"atlus":Vector2i(1, 0),
 			"breakLayer":-1
 			},
+		"Path":{
+			"atlus":Vector2i(5, 0),
+			"breakLayer":-1
+		},
 		"Soil":{
 			"atlus":Vector2i(2, 0),
 			"breakLayer":0
@@ -102,12 +106,12 @@ var blockData = {
 			"atlus":Vector2i(3, 0),
 			"breakLayer":1,
 			"drops": ["SoulSeed"]
-			},
+		},
 		"SoulStg2":{
 			"atlus":Vector2i(4, 0),
 			"breakLayer":1,
 			"drops":["SoulEssence", "SoulSeed"]
-			},
+		},
 		"WeakWall":{
 			"atlus":Vector2i(0, 1),
 			"breakLayer":0,
@@ -162,7 +166,7 @@ var blockData = {
 
 var cycle = 1
 var time: int = 360
-var timeFloat = 900.0#360.0
+var timeFloat = 360.0
 var timeScale = 7
 var nightDay = "Day"
 

@@ -1,0 +1,173 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkqj30xxjhdwk"]
+
+[ext_resource type="Script" path="res://TSCNs/PauseMenu/pause_menu.gd" id="1_j5dyr"]
+[ext_resource type="Texture2D" uid="uid://xula0p46y4xc" path="res://Textures/UI/Button/upressed.png" id="2_b4rjm"]
+[ext_resource type="Texture2D" uid="uid://bfoa1ksnwr0ow" path="res://Textures/UI/Button/pressed.png" id="3_okcog"]
+[ext_resource type="FontFile" uid="uid://3ttl8bobhg5c" path="res://Fonts/dogicapixel.ttf" id="4_dvd48"]
+[ext_resource type="Texture2D" uid="uid://bo1sbcpg1rw0n" path="res://Textures/UI/Button/hovered.png" id="5_k3m14"]
+
+[node name="Pause Menu" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -768.0
+offset_bottom = -432.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+script = ExtResource("1_j5dyr")
+
+[node name="OutsideVBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Resume" type="TextureButton" parent="OutsideVBox"]
+layout_mode = 2
+texture_normal = ExtResource("2_b4rjm")
+texture_pressed = ExtResource("3_okcog")
+texture_hover = ExtResource("5_k3m14")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="OutsideVBox/Resume"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dvd48")
+theme_override_font_sizes/font_size = 8
+text = "Resume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controls" type="TextureButton" parent="OutsideVBox"]
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("2_b4rjm")
+texture_pressed = ExtResource("3_okcog")
+texture_hover = ExtResource("5_k3m14")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="OutsideVBox/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dvd48")
+theme_override_font_sizes/font_size = 8
+text = "Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit" type="TextureButton" parent="OutsideVBox"]
+layout_mode = 2
+texture_normal = ExtResource("2_b4rjm")
+texture_pressed = ExtResource("3_okcog")
+texture_hover = ExtResource("5_k3m14")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="OutsideVBox/Quit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dvd48")
+theme_override_font_sizes/font_size = 8
+text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AreYouSure" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Sure" type="TextureButton" parent="AreYouSure"]
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("2_b4rjm")
+texture_pressed = ExtResource("3_okcog")
+texture_hover = ExtResource("5_k3m14")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="AreYouSure/Sure"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dvd48")
+theme_override_font_sizes/font_size = 8
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit" type="TextureButton" parent="AreYouSure"]
+layout_mode = 2
+texture_normal = ExtResource("2_b4rjm")
+texture_pressed = ExtResource("3_okcog")
+texture_hover = ExtResource("5_k3m14")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="AreYouSure/Quit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dvd48")
+theme_override_font_sizes/font_size = 8
+text = "Yes, quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="TextureButton" parent="AreYouSure"]
+layout_mode = 2
+texture_normal = ExtResource("2_b4rjm")
+texture_pressed = ExtResource("3_okcog")
+texture_hover = ExtResource("5_k3m14")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="AreYouSure/Back"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dvd48")
+theme_override_font_sizes/font_size = 8
+text = "No, go back"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="OutsideVBox/Resume" to="." method="resumePressed"]
+[connection signal="pressed" from="OutsideVBox/Quit" to="." method="quitPressed"]
+[connection signal="pressed" from="AreYouSure/Quit" to="." method="secondQuitPressed"]
+[connection signal="pressed" from="AreYouSure/Back" to="." method="secondBackPressed"]

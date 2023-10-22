@@ -18,7 +18,7 @@ signal merchant_close
 
 
 func _ready():
-	prepareInventory([{"Hoe":1}, {"SoulSeed":5}, {"StrongWall":1}, {"AverageWall":1}, {"WeakWall":1}, {"Directional":1}, {"Turret":1}])
+	prepareInventory([{"Hoe":1}, {"SoulSeed":5}])
 
 func _physics_process(delta):
 	if !open and heldItem != {}:
@@ -195,20 +195,44 @@ func hasEmptySpace():
 func canHold(itemData):
 	if itemData != {}:
 		var key = itemData.keys()[0]
+		print(key)
 		var count = itemData[key]
-		for i in items:
-			if i == {}:
+		print(count)
+		for i in items.size():
+			print(i)
+			if items[i] == {} and i != heldItemFallbackIndex:
+				print("empty slot")
 				return true
 			else:
-				var iKey = i.keys()[0]
-				var iCount = i[iKey]
-				if heldItem != {}:
-					var heldKey = heldItem.keys()[0]
-					var heldCount = heldItem[heldKey]
-					if (iCount + count + heldCount < 100) and heldKey == key and iKey == key:
-						return true
-				elif (iCount + count < 100) and iKey == key:
+				print("else")
+				var iKey
+				var iCount
+				if i == heldItemFallbackIndex:
+					print("i == heldItemFallbackIndex")
+					iKey = heldItem.keys()[0]
+					iCount = heldItem[iKey]
+				else:
+					print("else")
+					iKey = items[i].keys()[0]
+					iCount = items[i][iKey]
+				print(iKey)
+				print(iCount)
+				if (iCount + count < 100) and iKey == key:
+					print("they chillin fr")
 					return true
+#			if i == {}:
+#				return true
+#			else:
+#				var iKey = i.keys()[0]
+#				var iCount = i[iKey]
+#				if heldItem != {}:
+#					var heldKey = heldItem.keys()[0]
+#					var heldCount = heldItem[heldKey]
+#					if (iCount + count + heldCount < 100) and heldKey == key and iKey == key:
+#						return true
+#				elif (iCount + count < 100) and iKey == key:
+#					return true
+	print("no good")
 	return false
 
 func nextEmpty():

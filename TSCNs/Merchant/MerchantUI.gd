@@ -10,7 +10,7 @@ func prepareMerchant(data: Array):
 	for i in Merchant.ITEMS_COUNT:
 		var count = 1
 		match data[i]:
-			"WeakWall", "AverageWall", "StrongWall", "StickyTrap":
+			"StickyTrap":
 				count = 3
 			"SoulSeed":
 				count = 2

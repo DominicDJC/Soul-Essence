@@ -29,13 +29,17 @@ func _physics_process(delta):
 	runEffects(delta)
 	attackSurroundings(delta)
 	if angry > 0 and G.nightDay == "Night":
+		print("1")
 		angry -= delta
 	elif essenceCheck():
+		print("2")
 		target = Portal
 	elif G.nightDay == "Day":
+		print("3")
 		angry = 0.0
 		target = closest(get_parent().getLeftRight())
 	else:
+		print("4")
 		getTarget()
 	if !knockback:
 		if target:
@@ -57,19 +61,22 @@ func _physics_process(delta):
 					if angry > 0:
 						target.hurt(self)
 					else:
-						WorldMap.enemyKillTile(target.tile, self)
+						WorldMap.enemyKillTile(target.tile, self, target)
 			if velocity.x > 0:
 				Sprite.flip_h = false
 			if velocity.x < 0:
 				Sprite.flip_h = true
 	else:
+		print("here")
 		if cooldown > 0:
+			print("cooldown:" + str(cooldown))
 			cooldown -= delta
 			velocity.x = cos(angle)
 			velocity.y = sin(angle)
 			velocity = velocity * knockbackSpeed * cooldown * 8
 			move_and_slide()
 		else:
+			print("knockback false")
 			knockback = false
 
 func closest(array):
@@ -82,6 +89,7 @@ func closest(array):
 	return close
 
 func getTarget():
+	target = null
 	if WorldMap.getCrops() != []:
 		for i in WorldMap.getCrops():
 			if i.stage == 2:
