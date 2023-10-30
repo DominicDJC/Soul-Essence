@@ -5,6 +5,7 @@ extends Camera2D
 @export var defaultZoom = Vector2(2, 2)
 @export var zoomScale = Vector2(.5, .5)
 @onready var Center = $"../Center"
+@onready var Player = $"../Player"
 
 func _ready():
 	G.MainCam = self
@@ -22,3 +23,8 @@ func _unhandled_input(event):
 		zoom -= zoomScale
 	if event.is_action_pressed("zoom_reset"):
 		zoom = defaultZoom
+	if event.is_action_pressed("debugcam"):
+		if Target == Player:
+			Target = Center
+		elif Target == Center:
+			Target = Player

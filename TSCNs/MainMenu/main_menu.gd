@@ -2,7 +2,6 @@ extends Control
 
 @onready var FullscreenText = $VBoxContainer/Fullscreen/Label
 
-
 func _ready():
 	$AudioStreamPlayer.play()
 

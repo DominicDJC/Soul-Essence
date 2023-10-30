@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b27qg1qcvno5j"]
+[gd_scene load_steps=31 format=3 uid="uid://b27qg1qcvno5j"]
 
 [ext_resource type="Texture2D" uid="uid://divlgkim52vjl" path="res://TileSets/Placeholder.png" id="1_0ecyk"]
 [ext_resource type="Script" path="res://TSCNs/Game/TileMap.gd" id="2_y1ob4"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://TSCNs/Game/InventoryUI.gd" id="7_yg1xq"]
 [ext_resource type="Script" path="res://TSCNs/Game/EnemyManager.gd" id="8_aryv8"]
 [ext_resource type="PackedScene" uid="uid://c86ftow2y44og" path="res://TSCNs/HealthBar/playerhealth.tscn" id="11_uy7wf"]
+[ext_resource type="Script" path="res://TSCNs/Game/UI.gd" id="12_pqbsw"]
 [ext_resource type="FontFile" uid="uid://3ttl8bobhg5c" path="res://Fonts/dogicapixel.ttf" id="13_nwxos"]
 [ext_resource type="Script" path="res://TSCNs/Game/DateTime.gd" id="14_rp7hn"]
 [ext_resource type="PackedScene" uid="uid://dkqj30xxjhdwk" path="res://TSCNs/PauseMenu/pause_menu.tscn" id="16_a4e24"]
@@ -272,6 +273,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("12_pqbsw")
 
 [node name="InventoryItemChild" parent="CanvasLayer/UI" instance=ExtResource("6_dcwfl")]
 z_index = 2
